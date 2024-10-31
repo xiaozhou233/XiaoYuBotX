@@ -4,7 +4,7 @@ import okhttp3.*;
 
 public class WebSocketClient {
     private final OkHttpClient client;
-    private WebSocket webSocket;
+    private static WebSocket webSocket;
 
     public WebSocketClient() {
         this.client = new OkHttpClient();
@@ -15,7 +15,7 @@ public class WebSocketClient {
         webSocket = client.newWebSocket(request, new WsListener());
     }
 
-    public void send(String message) {
+    public static void send(String message) {
         if (webSocket != null) {
             webSocket.send(message);
         }
