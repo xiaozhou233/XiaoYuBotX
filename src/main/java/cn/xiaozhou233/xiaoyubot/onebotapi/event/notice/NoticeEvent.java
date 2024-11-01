@@ -8,6 +8,22 @@ public abstract class NoticeEvent {
     protected String postType;
     protected String noticeType;
 
+    public long time() {
+        return time;
+    }
+
+    public long selfId() {
+        return selfId;
+    }
+
+    public String postType() {
+        return postType;
+    }
+
+    public String noticeType() {
+        return noticeType;
+    }
+
     public NoticeEvent(JsonNode jsonNode) {
         this.time = jsonNode.get("time").asLong();
         this.selfId = jsonNode.get("self_id").asLong();

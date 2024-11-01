@@ -5,27 +5,23 @@ import okhttp3.*;
 import java.io.IOException;
 
 public class HttpClient {
-    private final OkHttpClient client;
+    private static final OkHttpClient CLIENT = new OkHttpClient();
 
-    public HttpClient() {
-        this.client = new OkHttpClient();
-    }
-
-    // 发送GET请求
+    // Send GET request
     public String get(String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = CLIENT.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response);
+                throw new IOException("Unexpected response code: " + response.code());
             }
             return response.body().string();
         }
     }
 
-    // 发送POST请求
+    // Send POST request with JSON body
     public String post(String url, String json) throws IOException {
         RequestBody body = RequestBody.create(json, MediaType.get("application/json; charset=utf-8"));
         Request request = new Request.Builder()
@@ -33,20 +29,26 @@ public class HttpClient {
                 .post(body)
                 .build();
 
-        try (Response response = client.newCall(request).execute()) {
+        try (Response response = CLIENT.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Unexpected code " + response);
+                throw new IOException("Unexpected response code: " + response.code());
             }
             return response.body().string();
         }
     }
 
-    public static void main(String[] args) throws IOException {
-        String response = new HttpClient().get("https://www.baidu.com");
-        System.out.println(response);
+    public static void main(String[] args) {
+        HttpClient httpClient = new HttpClient();
+        try {
+            String getResponse = httpClient.get("https://www.baidu.com");
+            System.out.println("GET Response: " + getResponse);
 
-        String json = "{\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
-        String responsePost = new HttpClient().post("https://jsonplaceholder.typicode.com/posts", json);
-        System.out.println("POST Response: " + responsePost);
+            String json = "{\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
+            String postResponse = httpClient.post("https://jsonplaceholder.typicode.com/posts", json);
+            System.out.println("POST Response: " + postResponse);
+        } catch (IOException e) {
+            System.err.println("Request failed: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

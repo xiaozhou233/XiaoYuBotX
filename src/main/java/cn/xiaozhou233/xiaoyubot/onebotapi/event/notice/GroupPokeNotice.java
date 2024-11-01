@@ -9,6 +9,22 @@ public class GroupPokeNotice extends NoticeEvent {
     private long userId;
     private long targetId;
 
+    public String subType() {
+        return subType;
+    }
+
+    public long groupId() {
+        return groupId;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
+    public long targetId() {
+        return targetId;
+    }
+
     public GroupPokeNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.subType = jsonNode.get("sub_type").asText();

@@ -7,6 +7,14 @@ public class GroupRequestEvent extends RequestEvent {
     private String subType;
     private long groupId;
 
+    public String subType() {
+        return subType;
+    }
+
+    public long groupId() {
+        return groupId;
+    }
+
     public GroupRequestEvent(JsonNode jsonNode) {
         super(jsonNode);
         this.subType = jsonNode.get("sub_type").asText();

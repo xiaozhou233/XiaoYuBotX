@@ -3,27 +3,37 @@ package cn.xiaozhou233.xiaoyubot.network;
 import okhttp3.*;
 
 public class WebSocketClient {
-    private final OkHttpClient client;
-    private static WebSocket webSocket;
+    private OkHttpClient client;
+    private WebSocket webSocket;
 
     public WebSocketClient() {
-        this.client = new OkHttpClient();
+        // Lazy initialization
+        this.client = new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .build();
     }
 
     public void connect(String url) {
         Request request = new Request.Builder().url(url).build();
-        webSocket = client.newWebSocket(request, new WsListener());
+        this.webSocket = client.newWebSocket(request, new WsListener());
     }
 
-    public static void send(String message) {
+    public void send(String message) {
         if (webSocket != null) {
             webSocket.send(message);
+        } else {
+            System.err.println("[WARN] Cannot send message, WebSocket is not connected.");
         }
     }
 
     public void close() {
         if (webSocket != null) {
             webSocket.close(1000, "Closing connection");
+            webSocket = null;
+        }
+        if (client != null) {
+            client.dispatcher().executorService().shutdown();
+            client = null;
         }
     }
 
@@ -31,5 +41,4 @@ public class WebSocketClient {
         WebSocketClient client = new WebSocketClient();
         client.connect("ws://localhost:3001");
     }
-
 }

@@ -9,6 +9,22 @@ public class GroupIncreaseNotice extends NoticeEvent {
     private long operatorId;
     private long userId;
 
+    public String subType() {
+        return subType;
+    }
+
+    public long groupId() {
+        return groupId;
+    }
+
+    public long operatorId() {
+        return operatorId;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
     public GroupIncreaseNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.subType = jsonNode.get("sub_type").asText();

@@ -9,6 +9,22 @@ public class GroupRecallNotice extends NoticeEvent {
     private long operatorId;
     private long messageId;
 
+    public long groupId() {
+        return groupId;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
+    public long operatorId() {
+        return operatorId;
+    }
+
+    public long messageId() {
+        return messageId;
+    }
+
     public GroupRecallNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.groupId = jsonNode.get("group_id").asLong();

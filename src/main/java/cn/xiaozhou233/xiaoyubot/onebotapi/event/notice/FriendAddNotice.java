@@ -10,4 +10,8 @@ public class FriendAddNotice extends NoticeEvent {
         super(jsonNode);
         this.userId = jsonNode.get("user_id").asLong();
     }
+
+    public long getUserId() {
+        return userId;
+    }
 }

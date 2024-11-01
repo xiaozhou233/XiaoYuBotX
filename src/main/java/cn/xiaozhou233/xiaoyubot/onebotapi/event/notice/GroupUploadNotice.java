@@ -6,6 +6,19 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class GroupUploadNotice extends NoticeEvent {
     private long groupId;
     private long userId;
+
+    public long groupId() {
+        return groupId;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
+    public File file() {
+        return file;
+    }
+
     private File file;
 
     public GroupUploadNotice(JsonNode jsonNode) {

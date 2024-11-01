@@ -8,6 +8,18 @@ public class GroupAdminNotice extends NoticeEvent {
     private long groupId;
     private long userId;
 
+    public String subType() {
+        return subType;
+    }
+
+    public long groupId() {
+        return groupId;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
     public GroupAdminNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.subType = jsonNode.get("sub_type").asText();

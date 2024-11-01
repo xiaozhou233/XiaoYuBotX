@@ -3,32 +3,47 @@ package cn.xiaozhou233.xiaoyubot.onebotapi.api;
 import cn.xiaozhou233.xiaoyubot.network.CallAPI;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class send_group_msg {
-    public long group_id;
-    public String message;
-    public boolean auto_escape;
-    public send_group_msg(long group_id, String message) {
-        this.group_id = group_id;
+    private long groupId;
+    private String message;
+    private boolean autoEscape = true;
+
+    // 使用构造器重载，让用户选择是否提供autoEscape
+    public send_group_msg(long groupId, String message) {
+        this.groupId = groupId;
         this.message = message;
-        this.auto_escape = true;
-    }
-    public void send(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("group_id", group_id);
-        map.put("message", message);
-        map.put("auto_escape", auto_escape);
-        CallAPI.call("send_group_msg", map);
     }
 
-    public void setAuto_escape(boolean auto_escape) {
-        this.auto_escape = auto_escape;
-    }
-    public void setMessage(String message) {
+    public send_group_msg(long groupId, String message, boolean autoEscape) {
+        this.groupId = groupId;
         this.message = message;
+        this.autoEscape = autoEscape;
     }
-    public void setGroup_id(long group_id) {
-        this.group_id = group_id;
+
+    public void send() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("group_id", groupId);
+        params.put("message", message);
+        params.put("auto_escape", autoEscape);
+        CallAPI.call("send_group_msg", params);
+    }
+
+    // 使用流式接口（链式调用）
+    public send_group_msg setAutoEscape(boolean autoEscape) {
+        this.autoEscape = autoEscape;
+        return this;
+    }
+
+    public send_group_msg setMessage(String message) {
+        this.message = message;
+        return this;
+    }
+
+    public send_group_msg setGroupId(long groupId) {
+        this.groupId = groupId;
+        return this;
     }
 
     public static void main(String[] args) {

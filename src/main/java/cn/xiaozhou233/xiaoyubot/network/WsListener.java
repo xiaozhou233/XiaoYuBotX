@@ -8,31 +8,35 @@ import okhttp3.WebSocketListener;
 import okio.ByteString;
 
 public class WsListener extends WebSocketListener {
-    private static ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
-        System.out.println(String.format("[INFO] Connected to WebSocket! [%s]", response.request().url()));
+        System.out.printf("[INFO] Connected to WebSocket! [%s]%n", response.request().url());
     }
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        System.out.println("[Debug] Received text message: " + text);
-        // 解析json
-        try{
-            MessageHandle.handle(mapper.readTree(text));
-        }catch (Exception e){
-            System.out.println("[WARN] Received message is not a valid json: " + text);
+        System.out.println("[DEBUG] Received text message: " + text);
+        // Parse JSON
+        try {
+            MessageHandle.handle(MAPPER.readTree(text));
+        } catch (Exception e) {
+            System.err.println("[WARN] Failed to parse JSON message: " + text);
+            e.printStackTrace();
         }
     }
 
     @Override
     public void onClosing(WebSocket webSocket, int code, String reason) {
-        webSocket.close(1000, null);
         System.out.println("[WARN] WebSocket is closing: " + reason);
     }
 
     @Override
     public void onFailure(WebSocket webSocket, Throwable t, Response response) {
-        System.out.println("[ERROR] WebSocket connection failed: " + t.getMessage());
+        System.err.println("[ERROR] WebSocket connection failed: " + t.getMessage());
+        if (response != null) {
+            System.err.println("[ERROR] Response code: " + response.code());
+        }
     }
 }

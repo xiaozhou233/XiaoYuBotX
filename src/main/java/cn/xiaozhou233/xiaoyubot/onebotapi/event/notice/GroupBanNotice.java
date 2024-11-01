@@ -10,6 +10,26 @@ public class GroupBanNotice extends NoticeEvent {
     private long userId;
     private long duration;
 
+    public String subType() {
+        return subType;
+    }
+
+    public long groupId() {
+        return groupId;
+    }
+
+    public long operatorId() {
+        return operatorId;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
+    public long duration() {
+        return duration;
+    }
+
     public GroupBanNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.subType = jsonNode.get("sub_type").asText();

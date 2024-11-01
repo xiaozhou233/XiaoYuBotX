@@ -9,6 +9,22 @@ public class GroupHonorChangeNotice extends NoticeEvent {
     private String honorType;
     private long userId;
 
+    public String subType() {
+        return subType;
+    }
+
+    public long groupId() {
+        return groupId;
+    }
+
+    public String honorType() {
+        return honorType;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
     public GroupHonorChangeNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.subType = jsonNode.get("sub_type").asText();

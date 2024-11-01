@@ -9,6 +9,35 @@ public abstract class RequestEvent {
     protected String requestType;
     protected long userId;
     protected String comment;
+
+    public long time() {
+        return time;
+    }
+
+    public long selfId() {
+        return selfId;
+    }
+
+    public String postType() {
+        return postType;
+    }
+
+    public String requestType() {
+        return requestType;
+    }
+
+    public long userId() {
+        return userId;
+    }
+
+    public String comment() {
+        return comment;
+    }
+
+    public String flag() {
+        return flag;
+    }
+
     protected String flag;
 
     public RequestEvent(JsonNode jsonNode) {

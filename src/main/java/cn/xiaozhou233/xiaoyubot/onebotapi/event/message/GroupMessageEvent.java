@@ -11,14 +11,16 @@ public class GroupMessageEvent extends MessageEvent {
 
     public GroupMessageEvent(JsonNode jsonNode) {
         super(jsonNode);
-        this.subType = jsonNode.get("sub_type").asText();
-        this.groupId = jsonNode.get("group_id").asLong();
-        JsonNode anonymousNode = jsonNode.get("anonymous");
-        if (anonymousNode != null && !anonymousNode.isNull()) {
+        this.subType = jsonNode.path("sub_type").asText("Unknown");  // 默认值为 "Unknown"
+        this.groupId = jsonNode.path("group_id").asLong(0);          // 默认值为 0
+
+        JsonNode anonymousNode = jsonNode.path("anonymous");
+        if (!anonymousNode.isMissingNode() && !anonymousNode.isNull()) {
             this.anonymous = new Anonymous(anonymousNode);
         }
-        JsonNode senderNode = jsonNode.get("sender");
-        if (senderNode != null) {
+
+        JsonNode senderNode = jsonNode.path("sender");
+        if (!senderNode.isMissingNode()) {
             this.sender = new Sender(senderNode);
         }
     }
@@ -29,10 +31,15 @@ public class GroupMessageEvent extends MessageEvent {
         private String flag;
 
         public Anonymous(JsonNode anonymousNode) {
-            this.id = anonymousNode.get("id").asLong();
-            this.name = anonymousNode.get("name").asText();
-            this.flag = anonymousNode.get("flag").asText();
+            this.id = anonymousNode.path("id").asLong(0);                // 默认值为 0
+            this.name = anonymousNode.path("name").asText("Unknown");    // 默认值为 "Unknown"
+            this.flag = anonymousNode.path("flag").asText("Unknown");    // 默认值为 "Unknown"
         }
+
+        // Getter methods
+        public long getId() { return id; }
+        public String getName() { return name; }
+        public String getFlag() { return flag; }
     }
 
     public static class Sender {
@@ -47,15 +54,32 @@ public class GroupMessageEvent extends MessageEvent {
         private String title;
 
         public Sender(JsonNode senderNode) {
-            this.userId = senderNode.get("user_id").asLong();
-            this.nickname = senderNode.get("nickname").asText();
-            this.card = senderNode.get("card").asText();
-            this.sex = senderNode.get("sex").asText();
-            this.age = senderNode.get("age").asInt();
-            this.area = senderNode.get("area").asText();
-            this.level = senderNode.get("level").asText();
-            this.role = senderNode.get("role").asText();
-            this.title = senderNode.get("title").asText();
+            this.userId = senderNode.path("user_id").asLong(0);                // 默认值为 0
+            this.nickname = senderNode.path("nickname").asText("Unknown");     // 默认值为 "Unknown"
+            this.card = senderNode.path("card").asText("Unknown");             // 默认值为 "Unknown"
+            this.sex = senderNode.path("sex").asText("Unknown");               // 默认值为 "Unknown"
+            this.age = senderNode.path("age").asInt(0);                        // 默认值为 0
+            this.area = senderNode.path("area").asText("Unknown");             // 默认值为 "Unknown"
+            this.level = senderNode.path("level").asText("Unknown");           // 默认值为 "Unknown"
+            this.role = senderNode.path("role").asText("Unknown");             // 默认值为 "Unknown"
+            this.title = senderNode.path("title").asText("Unknown");           // 默认值为 "Unknown"
         }
+
+        // Getter methods
+        public long getUserId() { return userId; }
+        public String getNickname() { return nickname; }
+        public String getCard() { return card; }
+        public String getSex() { return sex; }
+        public int getAge() { return age; }
+        public String getArea() { return area; }
+        public String getLevel() { return level; }
+        public String getRole() { return role; }
+        public String getTitle() { return title; }
     }
+
+    // Getter methods for GroupMessageEvent
+    public String getSubType() { return subType; }
+    public long getGroupId() { return groupId; }
+    public Anonymous getAnonymous() { return anonymous; }
+    public Sender getSender() { return sender; }
 }

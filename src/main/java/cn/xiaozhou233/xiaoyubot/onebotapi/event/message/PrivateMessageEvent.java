@@ -7,11 +7,19 @@ public class PrivateMessageEvent extends MessageEvent {
     private String subType;
     private Sender sender;
 
+    public String getSubType() {
+        return subType;
+    }
+
+    public Sender getSender() {
+        return sender;
+    }
+
     public PrivateMessageEvent(JsonNode jsonNode) {
         super(jsonNode);
-        this.subType = jsonNode.get("sub_type").asText();
-        JsonNode senderNode = jsonNode.get("sender");
-        if (senderNode != null) {
+        this.subType = jsonNode.path("sub_type").asText("Unknown"); // 默认值为 "Unknown"
+        JsonNode senderNode = jsonNode.path("sender");
+        if (!senderNode.isMissingNode()) { // 确保 senderNode 存在
             this.sender = new Sender(senderNode);
         }
     }
@@ -22,11 +30,27 @@ public class PrivateMessageEvent extends MessageEvent {
         private String sex;
         private int age;
 
+        public long getUserId() {
+            return userId;
+        }
+
+        public String getNickname() {
+            return nickname;
+        }
+
+        public String getSex() {
+            return sex;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
         public Sender(JsonNode senderNode) {
-            this.userId = senderNode.get("user_id").asLong();
-            this.nickname = senderNode.get("nickname").asText();
-            this.sex = senderNode.get("sex").asText();
-            this.age = senderNode.get("age").asInt();
+            this.userId = senderNode.path("user_id").asLong(0);          // 默认值为 0
+            this.nickname = senderNode.path("nickname").asText("Unknown"); // 默认值为 "Unknown"
+            this.sex = senderNode.path("sex").asText("Unknown");         // 默认值为 "Unknown"
+            this.age = senderNode.path("age").asInt(0);                  // 默认值为 0
         }
     }
 }

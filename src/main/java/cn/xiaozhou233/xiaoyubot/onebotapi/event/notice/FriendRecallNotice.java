@@ -7,6 +7,14 @@ public class FriendRecallNotice extends NoticeEvent {
     private long userId;
     private long messageId;
 
+    public long getMessageId() {
+        return messageId;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
     public FriendRecallNotice(JsonNode jsonNode) {
         super(jsonNode);
         this.userId = jsonNode.get("user_id").asLong();
