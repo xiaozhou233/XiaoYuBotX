@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'cn.xiaozhou233.ExamplePlugin'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation project('xiaoyubot')
+}
+
+// 打包resources和Class到jar
+jar {
+    manifest {
+        attributes 'Main-Class': 'cn.xiaozhou233.ExamplePlugin.PluginMain'
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+
+}

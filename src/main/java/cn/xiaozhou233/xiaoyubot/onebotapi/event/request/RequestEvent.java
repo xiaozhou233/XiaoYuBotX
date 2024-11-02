@@ -9,36 +9,35 @@ public abstract class RequestEvent {
     protected String requestType;
     protected long userId;
     protected String comment;
+    protected String flag;
 
-    public long time() {
+    public long getTime() {
         return time;
     }
 
-    public long selfId() {
+    public long getSelfId() {
         return selfId;
     }
 
-    public String postType() {
+    public String getPostType() {
         return postType;
     }
 
-    public String requestType() {
+    public String getRequestType() {
         return requestType;
     }
 
-    public long userId() {
+    public long getUserId() {
         return userId;
     }
 
-    public String comment() {
+    public String getComment() {
         return comment;
     }
 
-    public String flag() {
+    public String getFlag() {
         return flag;
     }
-
-    protected String flag;
 
     public RequestEvent(JsonNode jsonNode) {
         this.time = jsonNode.get("time").asLong();

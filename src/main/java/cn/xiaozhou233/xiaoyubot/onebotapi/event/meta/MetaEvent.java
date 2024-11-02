@@ -8,6 +8,22 @@ public abstract class MetaEvent {
     protected String postType;
     protected String metaEventType;
 
+    public long getTime() {
+        return time;
+    }
+
+    public long getSelfId() {
+        return selfId;
+    }
+
+    public String getPostType() {
+        return postType;
+    }
+
+    public String getMetaEventType() {
+        return metaEventType;
+    }
+
     public MetaEvent(JsonNode jsonNode) {
         this.time = jsonNode.get("time").asLong();
         this.selfId = jsonNode.get("self_id").asLong();

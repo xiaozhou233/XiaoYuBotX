@@ -1,0 +1,6 @@
+# The PluginName will become the prefix in logs.
+PluginName = "EchoPlugin"
+# Your plugin version.
+PluginVersion = "1.0.0"
+# Which is the main class of your plugin.
+MainClass = "cn.xiaozhou233.ExamplePlugin.PluginMain"
