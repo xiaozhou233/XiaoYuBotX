@@ -10,7 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # Allow creating releases
+      actions: write    # Allow using actions that require write access
 
     steps:
       - uses: actions/checkout@v4
@@ -57,7 +58,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         with:
-          tag_name: 'v${{ github.run_number }}'  # or another versioning strategy
+          tag_name: 'v${{ github.run_number }}'
           release_name: 'Release v${{ github.run_number }}'
           draft: false
           prerelease: false
@@ -68,16 +69,16 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: out/*.jar  # Path for the release artifacts
-          asset_name: XiaoYuBotX.jar  # Change as needed
+          asset_path: out/*.jar
+          asset_name: release.jar
           asset_content_type: application/java-archive
 
       - name: Upload Release Assets for Developer
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/libs/*.jar  # Path for the developer artifacts
-          asset_name: sdk.jar  # Change as needed
+          asset_path: build/libs/*.jar
+          asset_name: sdk.jar
           asset_content_type: application/java-archive
 
   dependency-submission:
