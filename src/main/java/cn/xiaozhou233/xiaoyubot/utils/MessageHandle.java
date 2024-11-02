@@ -44,6 +44,18 @@ public class MessageHandle {
             case "group":
                 GroupMessageEvent groupMessage = new GroupMessageEvent(message);
                 PluginManager.getPlugins().forEach(plugin -> plugin.onGroupMessage(groupMessage));
+                // At机器人事件
+                groupMessage.getMessageSegments().forEach(segment -> {
+
+                    JsonNode qqNode = segment.getData().get("qq");
+                    boolean isAt = segment.getType().equals("at");
+                    boolean isSelf = qqNode != null && groupMessage.getSelfId() == qqNode.asLong();
+
+                    if (isAt && isSelf) {
+                        PluginManager.getPlugins().forEach(plugin -> plugin.onAtBot(groupMessage));
+                    }
+                });
+
                 break;
             default:
                 System.out.println("[WARN] Unknown message type: " + messageType);
