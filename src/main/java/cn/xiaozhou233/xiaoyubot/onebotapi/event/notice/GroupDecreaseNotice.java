@@ -9,19 +9,19 @@ public class GroupDecreaseNotice extends NoticeEvent {
     private long operatorId;
     private long userId;
 
-    public String subType() {
+    public String getSubType() {
         return subType;
     }
 
-    public long groupId() {
+    public long getGroupId() {
         return groupId;
     }
 
-    public long operatorId() {
+    public long getOperatorId() {
         return operatorId;
     }
 
-    public long userId() {
+    public long getUserId() {
         return userId;
     }
 

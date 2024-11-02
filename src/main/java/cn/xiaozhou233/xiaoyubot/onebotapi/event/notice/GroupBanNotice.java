@@ -10,23 +10,23 @@ public class GroupBanNotice extends NoticeEvent {
     private long userId;
     private long duration;
 
-    public String subType() {
+    public String getSubType() {
         return subType;
     }
 
-    public long groupId() {
+    public long getGroupId() {
         return groupId;
     }
 
-    public long operatorId() {
+    public long getOperatorId() {
         return operatorId;
     }
 
-    public long userId() {
+    public long getUserId() {
         return userId;
     }
 
-    public long duration() {
+    public long getDuration() {
         return duration;
     }
 

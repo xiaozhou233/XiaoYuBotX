@@ -9,19 +9,19 @@ public class GroupPokeNotice extends NoticeEvent {
     private long userId;
     private long targetId;
 
-    public String subType() {
+    public String getSubType() {
         return subType;
     }
 
-    public long groupId() {
+    public long getGroupId() {
         return groupId;
     }
 
-    public long userId() {
+    public long getUserId() {
         return userId;
     }
 
-    public long targetId() {
+    public long getTargetId() {
         return targetId;
     }
 

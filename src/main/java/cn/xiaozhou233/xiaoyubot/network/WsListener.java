@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
-import okio.ByteString;
 
 public class WsListener extends WebSocketListener {
     private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -17,7 +16,6 @@ public class WsListener extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        System.out.println("[DEBUG] Received text message: " + text);
         // Parse JSON
         try {
             MessageHandle.handle(MAPPER.readTree(text));

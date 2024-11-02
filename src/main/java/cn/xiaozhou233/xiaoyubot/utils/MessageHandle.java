@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 public class MessageHandle {
 
     public static void handle(JsonNode message) {
-        System.out.println("[DEBUG] Handling message: " + message);
 
         String postType = message.path("post_type").asText("unknown");
 
@@ -28,7 +27,7 @@ public class MessageHandle {
                 handleMetaEvent(message);
                 break;
             default:
-                System.out.println("[WARN] Unknown event type: " + postType);
+                System.out.println("[WARN] [MessageHandle] Unknown event type: " + postType);
                 break;
         }
     }
@@ -58,7 +57,7 @@ public class MessageHandle {
 
                 break;
             default:
-                System.out.println("[WARN] Unknown message type: " + messageType);
+                System.out.println("[WARN] [MessageHandle] Unknown message type: " + messageType);
                 break;
         }
     }
@@ -69,12 +68,10 @@ public class MessageHandle {
         switch (metaEventType) {
             case "heartbeat":
                 HeartbeatEvent heartbeatEvent = new HeartbeatEvent(message);
-                System.out.println("[DEBUG] Received heartbeat event: " + heartbeatEvent);
                 PluginManager.getPlugins().forEach(plugin -> plugin.onHeartbeat(heartbeatEvent));
                 break;
             case "lifecycle":
                 LifecycleEvent lifecycleEvent = new LifecycleEvent(message);
-                System.out.println("[DEBUG] Received lifecycle event: " + lifecycleEvent);
                 PluginManager.getPlugins().forEach(plugin -> plugin.onLifecycle(lifecycleEvent));
                 break;
             default:
@@ -124,7 +121,7 @@ public class MessageHandle {
                 PluginManager.getPlugins().forEach(plugin -> plugin.onGroupPoke(groupPokeNotice));
                 break;
             default:
-                System.out.println("[WARN] Unknown notice type: " + noticeType);
+                System.out.println("[WARN] [MessageHandle] Unknown notice type: " + noticeType);
                 break;
         }
     }
@@ -142,7 +139,7 @@ public class MessageHandle {
                 PluginManager.getPlugins().forEach(plugin -> plugin.onGroupRequest(groupRequest));
                 break;
             default:
-                System.out.println("[WARN] Unknown request type: " + requestType);
+                System.out.println("[WARN] [MessageHandle] Unknown request type: " + requestType);
                 break;
         }
     }

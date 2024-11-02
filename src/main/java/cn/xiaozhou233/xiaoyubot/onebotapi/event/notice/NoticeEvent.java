@@ -8,19 +8,19 @@ public abstract class NoticeEvent {
     protected String postType;
     protected String noticeType;
 
-    public long time() {
+    public long getTime() {
         return time;
     }
 
-    public long selfId() {
+    public long getSelfId() {
         return selfId;
     }
 
-    public String postType() {
+    public String getPostType() {
         return postType;
     }
 
-    public String noticeType() {
+    public String getNoticeType() {
         return noticeType;
     }
 
