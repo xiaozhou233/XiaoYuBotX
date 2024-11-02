@@ -36,19 +36,4 @@ public class HttpClient {
             return response.body().string();
         }
     }
-
-    public static void main(String[] args) {
-        HttpClient httpClient = new HttpClient();
-        try {
-            String getResponse = httpClient.get("https://www.baidu.com");
-            System.out.println("GET Response: " + getResponse);
-
-            String json = "{\"title\":\"foo\",\"body\":\"bar\",\"userId\":1}";
-            String postResponse = httpClient.post("https://jsonplaceholder.typicode.com/posts", json);
-            System.out.println("POST Response: " + postResponse);
-        } catch (IOException e) {
-            System.err.println("Request failed: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 }

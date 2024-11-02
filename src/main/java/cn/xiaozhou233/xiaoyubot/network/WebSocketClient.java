@@ -36,9 +36,4 @@ public class WebSocketClient {
             client = null;
         }
     }
-
-    public static void main(String[] args) {
-        WebSocketClient client = new WebSocketClient();
-        client.connect("ws://localhost:3001");
-    }
 }

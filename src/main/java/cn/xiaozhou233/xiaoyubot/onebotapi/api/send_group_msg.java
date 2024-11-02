@@ -45,8 +45,4 @@ public class send_group_msg {
         this.groupId = groupId;
         return this;
     }
-
-    public static void main(String[] args) {
-        new send_group_msg(650559268, "test").send();
-    }
 }
