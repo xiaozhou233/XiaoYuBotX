@@ -18,7 +18,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/EchoPlugin" />
-            <option value="$PROJECT_DIR$/EchoPlugin/XiaoYuBotX" />
           </set>
         </option>
       </GradleProjectSettings>

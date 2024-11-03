@@ -1,15 +1,20 @@
 package cn.xiaozhou233.xiaoyubot;
 
 import cn.xiaozhou233.xiaoyubot.network.WebSocketClient;
+import cn.xiaozhou233.xiaoyubot.utils.Configuration;
 import cn.xiaozhou233.xiaoyubot.utils.PluginManager;
 
 public class XiaoYuBotX {
     public static void main(String[] args) {
         // 连接 OneBot
         System.out.println("[INFO] XiaoYuBotX is starting...");
-        System.out.println("[INFO] Connecting to OneBot...");
+
+        System.out.println("[INFO] Loading configuration...");
+        Configuration configuration = new Configuration();
+        String wsUrl = configuration.getConfigNode().get("wsUrl").asText();
+
         WebSocketClient webSocketClient = new WebSocketClient();
-        webSocketClient.connect("ws://127.0.0.1:3001");
+        webSocketClient.connect(wsUrl);
 
         // 加载插件
         System.out.println("[INFO] Loading plugins...");
