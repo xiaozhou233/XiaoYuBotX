@@ -116,9 +116,20 @@ public class MessageHandle {
                 GroupUploadNotice groupUploadNotice = new GroupUploadNotice(message);
                 PluginManager.getPlugins().forEach(plugin -> plugin.onGroupUpload(groupUploadNotice));
                 break;
-            case "poke":
-                GroupPokeNotice groupPokeNotice = new GroupPokeNotice(message);
-                PluginManager.getPlugins().forEach(plugin -> plugin.onGroupPoke(groupPokeNotice));
+            case "notify":
+                switch (message.path("sub_type").asText()) {
+                    case "poke":
+                        GroupPokeNotice groupPokeNotice = new GroupPokeNotice(message);
+                        PluginManager.getPlugins().forEach(plugin -> plugin.onGroupPoke(groupPokeNotice));
+                        break;
+                    case "lucky_king":
+                        GroupLuckyKingNotice groupLuckyKingNotice = new GroupLuckyKingNotice(message);
+                        PluginManager.getPlugins().forEach(plugin -> plugin.onGroupLuckyKing(groupLuckyKingNotice));
+                        break;
+                    case "honor":
+                        GroupHonorChangeNotice groupHonorChangeNotice = new GroupHonorChangeNotice(message);
+                        PluginManager.getPlugins().forEach(plugin -> plugin.onGroupHonorChange(groupHonorChangeNotice));
+                }
                 break;
             default:
                 System.out.println("[WARN] [MessageHandle] Unknown notice type: " + noticeType);
