@@ -30,19 +30,7 @@ public class send_group_msg {
         CallAPI.call("send_group_msg", params);
     }
 
-    // 使用流式接口（链式调用）
-    public send_group_msg setAutoEscape(boolean autoEscape) {
-        this.autoEscape = autoEscape;
-        return this;
-    }
-
-    public send_group_msg setMessage(String message) {
-        this.message = message;
-        return this;
-    }
-
-    public send_group_msg setGroupId(long groupId) {
-        this.groupId = groupId;
-        return this;
+    public static void main(String[] args) {
+        new send_group_msg(650559268, "hello world").send();
     }
 }

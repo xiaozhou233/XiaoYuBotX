@@ -13,6 +13,7 @@ public class CallAPI {
     private static final HttpClient HTTP_CLIENT = new HttpClient();
 
     public static void call(String action, Map<String, Object> params) {
+        System.out.println(params);
         try {
             String jsonParams = OBJECT_MAPPER.writeValueAsString(params);
             String httpResponse = HTTP_CLIENT.post(String.format("%s/%s", HTTP_API, action), jsonParams);
