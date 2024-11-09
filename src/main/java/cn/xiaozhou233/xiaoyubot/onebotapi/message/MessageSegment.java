@@ -31,6 +31,28 @@ public class MessageSegment {
         return data;
     }
 
+    public String getDataAsString(String key) {
+        if (data.has(key) && !data.get(key).isNull()) {
+            return data.get(key).asText();
+        } else {
+            return null;
+        }
+    }
+
+    public long getDataAsLong(String key) {
+        if (data.has(key) && !data.get(key).isNull()) {
+            return data.get(key).asLong();
+        } else {
+            return -1;
+        }
+    }
+
+    public boolean getDataAsBoolean(String key) {
+        assert data.has(key) && !data.get(key).isNull();
+        return data.get(key).asBoolean();
+    }
+
+
     public static List<MessageSegment> fromJsonArray(JsonNode arrayNode) {
         List<MessageSegment> segments = new ArrayList<>();
         if (arrayNode.isArray()) {
