@@ -89,4 +89,15 @@ public class GroupMessageEvent extends MessageEvent {
         String content = "[CQ:reply,id=%d] %s".formatted(messageId, message);
         new send_group_msg(groupId, content).send();
     }
+
+    public void fastReply(String message, boolean isReplyFormat) {
+        String content = null;
+        if(isReplyFormat){
+            content = "[CQ:reply,id=%s] %s".formatted(String.valueOf(messageId), message);
+        }else {
+            content = message;
+        }
+
+        new send_group_msg(groupId, content).send();
+    }
 }

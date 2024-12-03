@@ -8,7 +8,7 @@ import java.util.Map;
 public class send_group_msg {
     private long groupId;
     private String message;
-    private boolean autoEscape = true;
+    private boolean autoEscape = false;
 
     // 使用构造器重载，让用户选择是否提供autoEscape
     public send_group_msg(long groupId, String message) {
