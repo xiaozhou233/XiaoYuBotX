@@ -30,7 +30,4 @@ public class send_group_msg {
         CallAPI.call("send_group_msg", params);
     }
 
-    public static void main(String[] args) {
-        new send_group_msg(650559268, "hello world").send();
-    }
 }

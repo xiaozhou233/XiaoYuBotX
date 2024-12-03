@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.onebotapi.event.message;
 
+import cn.xiaozhou233.xiaoyubot.onebotapi.api.send_group_msg;
 import com.fasterxml.jackson.databind.JsonNode;
 
 // 私聊消息事件
@@ -52,5 +53,10 @@ public class PrivateMessageEvent extends MessageEvent {
             this.sex = senderNode.path("sex").asText("Unknown");         // 默认值为 "Unknown"
             this.age = senderNode.path("age").asInt(0);                  // 默认值为 0
         }
+    }
+
+    public void fastReply(String message) {
+        String content = "[CQ:reply,id=%d] %s".formatted(messageId, message);
+        new send_group_msg(sender.userId, content).send();
     }
 }

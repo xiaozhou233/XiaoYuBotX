@@ -65,4 +65,27 @@ public abstract class MessageEvent {
     public int getFont() {
         return font;
     }
+
+    public String getText(){
+        StringBuilder sb = new StringBuilder();
+        messageSegments.forEach(segment ->{
+            if(segment.getType().equals("text")){
+                sb.append(segment.getDataAsString("text"));
+            }
+        });
+        return sb.toString();
+    }
+
+    public String getText(boolean replaceFirstSpace){
+        StringBuilder sb = new StringBuilder();
+        messageSegments.forEach(segment ->{
+            if(segment.getType().equals("text")){
+                sb.append(segment.getDataAsString("text"));
+            }
+        });
+        if(replaceFirstSpace && sb.length() > 0 && sb.charAt(0) == ' '){
+            sb.deleteCharAt(0);
+        }
+        return sb.toString();
+    }
 }

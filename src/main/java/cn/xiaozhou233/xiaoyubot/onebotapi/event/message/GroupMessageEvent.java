@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.onebotapi.event.message;
 
+import cn.xiaozhou233.xiaoyubot.onebotapi.api.send_group_msg;
 import com.fasterxml.jackson.databind.JsonNode;
 
 // 群消息事件
@@ -82,4 +83,10 @@ public class GroupMessageEvent extends MessageEvent {
     public long getGroupId() { return groupId; }
     public Anonymous getAnonymous() { return anonymous; }
     public Sender getSender() { return sender; }
+
+
+    public void fastReply(String message) {
+        String content = "[CQ:reply,id=%d] %s".formatted(messageId, message);
+        new send_group_msg(groupId, content).send();
+    }
 }
