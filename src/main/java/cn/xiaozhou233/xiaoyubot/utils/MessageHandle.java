@@ -51,6 +51,8 @@ public class MessageHandle {
 
                     if (isAt && isSelf) {
                         PluginManager.getPlugins().forEach(plugin -> plugin.onAtBot(groupMessage));
+                        // for keyword bind manager
+                        KeywordBind.onAtBotEvent(groupMessage);
                         break;
                     }
                 }

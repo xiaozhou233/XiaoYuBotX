@@ -36,4 +36,7 @@ public interface plugin {
     // 请求事件处理
     default void onFriendRequest(FriendRequestEvent friendRequestEvent) {}
     default void onGroupRequest(GroupRequestEvent groupRequestEvent) {}
+
+    // 筱雨框架事件
+    default void onTriggerKeyword(String keyword, GroupMessageEvent messageEvent) {}
 }
