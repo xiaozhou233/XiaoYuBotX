@@ -9,6 +9,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/XingHuoChat" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -18,6 +19,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/EchoPlugin" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../XiaoYuBotXPlugins/GroupManager" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../XiaoYuBotXPlugins/GroupManager" />
           </set>
         </option>
       </GradleProjectSettings>
