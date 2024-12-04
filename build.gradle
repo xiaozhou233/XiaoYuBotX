@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'cn.xiaozhou233.xiaoyubot'
-version = 'Release_1.0.1'
+version = 'Release_1.0.3'
 
 repositories {
     mavenCentral()

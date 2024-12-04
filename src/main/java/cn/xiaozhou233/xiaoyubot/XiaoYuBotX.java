@@ -5,6 +5,7 @@ import cn.xiaozhou233.xiaoyubot.utils.Configuration;
 import cn.xiaozhou233.xiaoyubot.utils.PluginManager;
 
 public class XiaoYuBotX {
+    public static String httpUrl;
     public static void main(String[] args) {
         // 连接 OneBot
         System.out.println("[INFO] XiaoYuBotX is starting...");
@@ -12,6 +13,7 @@ public class XiaoYuBotX {
         System.out.println("[INFO] Loading configuration...");
         Configuration configuration = new Configuration();
         String wsUrl = configuration.getConfigNode().get("wsUrl").asText();
+        httpUrl = configuration.getConfigNode().get("httpUrl").asText();
 
         WebSocketClient webSocketClient = new WebSocketClient();
         webSocketClient.connect(wsUrl);

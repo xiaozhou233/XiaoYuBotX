@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.network;
 
+import cn.xiaozhou233.xiaoyubot.XiaoYuBotX;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CallAPI {
-    private static final String HTTP_API = "http://127.0.0.1:3000";
+    private static final String HTTP_API = XiaoYuBotX.httpUrl;
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final HttpClient HTTP_CLIENT = new HttpClient();
 
