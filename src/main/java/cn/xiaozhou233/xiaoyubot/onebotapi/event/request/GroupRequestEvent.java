@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.onebotapi.event.request;
 
+import cn.xiaozhou233.xiaoyubot.onebotapi.api.set_group_add_request;
 import com.fasterxml.jackson.databind.JsonNode;
 
 // 加群请求/邀请事件类
@@ -19,5 +20,28 @@ public class GroupRequestEvent extends RequestEvent {
 
     public long getGroupId() {
         return groupId;
+    }
+
+    public class FastAction {
+        public void accept() {
+            String flag = getFlag();
+            String sub_type = getSubType();
+            boolean approve = true;
+            new set_group_add_request(flag, sub_type, approve, "").send();
+        }
+
+        public void reject() {
+            String flag = getFlag();
+            String sub_type = getSubType();
+            boolean approve = false;
+            new set_group_add_request(flag, sub_type, approve, "").send();
+        }
+
+        public void reject(String reason) {
+            String flag = getFlag();
+            String sub_type = getSubType();
+            boolean approve = false;
+            new set_group_add_request(flag, sub_type, approve, reason).send();
+        }
     }
 }
