@@ -12,19 +12,19 @@ public class FriendRequestEvent extends RequestEvent {
     public class FastAction {
         public void accept() {
             String flag = getFlag();
-            Boolean approve = true;
+            boolean approve = true;
             new set_friend_add_request(flag, approve, "").send();
         }
 
         public void accept(String remark) {
             String flag = getFlag();
-            Boolean approve = true;
+            boolean approve = true;
             new set_friend_add_request(flag, approve, remark).send();
         }
 
         public void reject() {
             String flag = getFlag();
-            Boolean approve = false;
+            boolean approve = false;
             new set_friend_add_request(flag, approve, "").send();
         }
     }

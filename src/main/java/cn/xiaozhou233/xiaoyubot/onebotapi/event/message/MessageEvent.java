@@ -5,15 +5,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 
 public abstract class MessageEvent {
-    protected long time;
-    protected long selfId;
-    protected String postType;
-    protected String messageType;
-    protected int messageId;
-    protected long userId;
-    protected List<MessageSegment> messageSegments;
-    protected String rawMessage;
-    protected int font;
+    protected final long time;
+    protected final long selfId;
+    protected final String postType;
+    protected final String messageType;
+    protected final int messageId;
+    protected final long userId;
+    protected final List<MessageSegment> messageSegments;
+    protected final String rawMessage;
+    protected final int font;
 
     public MessageEvent(JsonNode jsonNode) {
         this.time = jsonNode.path("time").asLong(0);
@@ -83,7 +83,7 @@ public abstract class MessageEvent {
                 sb.append(segment.getDataAsString("text"));
             }
         });
-        if(replaceFirstSpace && sb.length() > 0 && sb.charAt(0) == ' '){
+        if(replaceFirstSpace && !sb.isEmpty() && sb.charAt(0) == ' '){
             sb.deleteCharAt(0);
         }
         return sb.toString();

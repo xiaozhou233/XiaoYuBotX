@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 生命周期事件类
 public class LifecycleEvent extends MetaEvent {
-    private String subType;
+    private final String subType;
 
     public LifecycleEvent(JsonNode jsonNode) {
         super(jsonNode);

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class delete_msg {
-    private long message_id;
+    private final long message_id;
     public delete_msg(long message_id){
         this.message_id = message_id;
     }

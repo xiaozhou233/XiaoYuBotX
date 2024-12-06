@@ -3,13 +3,13 @@ package cn.xiaozhou233.xiaoyubot.onebotapi.event.request;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public abstract class RequestEvent {
-    protected long time;
-    protected long selfId;
-    protected String postType;
-    protected String requestType;
-    protected long userId;
-    protected String comment;
-    protected String flag;
+    protected final long time;
+    protected final long selfId;
+    protected final String postType;
+    protected final String requestType;
+    protected final long userId;
+    protected final String comment;
+    protected final String flag;
 
     public long getTime() {
         return time;

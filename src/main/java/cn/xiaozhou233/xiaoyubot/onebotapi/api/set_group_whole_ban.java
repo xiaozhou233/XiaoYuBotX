@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class set_group_whole_ban {
-    private long group_id;
-    private boolean enable;
+    private final long group_id;
+    private final boolean enable;
 
     public set_group_whole_ban(long group_id, boolean enable) {
         this.group_id = group_id;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 私聊消息事件
 public class PrivateMessageEvent extends MessageEvent {
-    private String subType;
+    private final String subType;
     private Sender sender;
 
     public String getSubType() {
@@ -26,10 +26,10 @@ public class PrivateMessageEvent extends MessageEvent {
     }
 
     public static class Sender {
-        private long userId;
-        private String nickname;
-        private String sex;
-        private int age;
+        private final long userId;
+        private final String nickname;
+        private final String sex;
+        private final int age;
 
         public long getUserId() {
             return userId;

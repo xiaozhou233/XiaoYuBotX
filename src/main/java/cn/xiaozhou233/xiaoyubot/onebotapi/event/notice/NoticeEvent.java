@@ -3,10 +3,10 @@ package cn.xiaozhou233.xiaoyubot.onebotapi.event.notice;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public abstract class NoticeEvent {
-    protected long time;
-    protected long selfId;
-    protected String postType;
-    protected String noticeType;
+    protected final long time;
+    protected final long selfId;
+    protected final String postType;
+    protected final String noticeType;
 
     public long getTime() {
         return time;

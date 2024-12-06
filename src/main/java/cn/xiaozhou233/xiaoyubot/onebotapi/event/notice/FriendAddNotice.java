@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 好友添加事件
 public class FriendAddNotice extends NoticeEvent {
-    private long userId;
+    private final long userId;
 
     public FriendAddNotice(JsonNode jsonNode) {
         super(jsonNode);

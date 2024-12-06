@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class set_friend_add_request {
-    private String flag;
-    private boolean approve;
-    private String remark;
+    private final String flag;
+    private final boolean approve;
+    private final String remark;
 
     public set_friend_add_request(String flag, boolean approve, String remark) {
         this.flag = flag;

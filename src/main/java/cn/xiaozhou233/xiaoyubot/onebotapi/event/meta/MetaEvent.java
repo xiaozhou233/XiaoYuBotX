@@ -3,10 +3,10 @@ package cn.xiaozhou233.xiaoyubot.onebotapi.event.meta;
 import com.fasterxml.jackson.databind.JsonNode;
 
 public abstract class MetaEvent {
-    protected long time;
-    protected long selfId;
-    protected String postType;
-    protected String metaEventType;
+    protected final long time;
+    protected final long selfId;
+    protected final String postType;
+    protected final String metaEventType;
 
     public long getTime() {
         return time;

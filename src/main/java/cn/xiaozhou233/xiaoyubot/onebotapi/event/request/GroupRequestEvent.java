@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 加群请求/邀请事件类
 public class GroupRequestEvent extends RequestEvent {
-    private String subType;
-    private long groupId;
+    private final String subType;
+    private final long groupId;
 
     public GroupRequestEvent(JsonNode jsonNode) {
         super(jsonNode);

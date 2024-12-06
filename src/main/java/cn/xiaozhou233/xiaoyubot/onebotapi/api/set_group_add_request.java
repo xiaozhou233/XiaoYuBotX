@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class set_group_add_request {
-    private String flag;
-    private String sub_type;
-    private boolean approve;
-    private String reason;
+    private final String flag;
+    private final String sub_type;
+    private final boolean approve;
+    private final String reason;
 
     public set_group_add_request(String flag, String sub_type, boolean approve, String reason) {
         this.flag = flag;
