@@ -2,8 +2,6 @@ package cn.xiaozhou233.xiaoyubot.network;
 
 import okhttp3.*;
 
-import java.util.concurrent.ExecutorService;
-
 public class WebSocketClient {
     private OkHttpClient client;
     private WebSocket webSocket;
@@ -34,9 +32,7 @@ public class WebSocketClient {
             webSocket = null;
         }
         if (client != null) {
-            try(ExecutorService executorService = client.dispatcher().executorService()) {
-                executorService.shutdown();
-            }
+            client.dispatcher().executorService().shutdown();
             client = null;
         }
     }
