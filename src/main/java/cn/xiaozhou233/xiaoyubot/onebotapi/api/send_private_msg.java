@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class send_private_msg {
-    private long user_id;
-    private String message;
+    private final long user_id;
+    private final String message;
     private boolean auto_escape = false;
 
     public send_private_msg(long user_id, String message) {

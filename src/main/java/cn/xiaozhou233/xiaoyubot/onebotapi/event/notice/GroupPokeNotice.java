@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群内戳一戳事件
 public class GroupPokeNotice extends NoticeEvent {
-    private String subType;
-    private long groupId;
-    private long userId;
-    private long targetId;
+    private final String subType;
+    private final long groupId;
+    private final long userId;
+    private final long targetId;
 
     public String getSubType() {
         return subType;

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 好友消息撤回事件
 public class FriendRecallNotice extends NoticeEvent {
-    private long userId;
-    private long messageId;
+    private final long userId;
+    private final long messageId;
 
     public long getMessageId() {
         return messageId;

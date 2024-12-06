@@ -6,7 +6,7 @@ import cn.xiaozhou233.xiaoyubot.plugin;
 import java.util.HashMap;
 
 public class KeywordBind {
-    private static HashMap<String, plugin> bind = new HashMap<>();
+    private static final HashMap<String, plugin> bind = new HashMap<>();
     public static void bind(plugin pluginInstance, String keyword){
         if (bind.containsKey(keyword))
             System.out.println("[Warn] KeywordBind Manager found a keyword conflict: " + keyword + "something maybe wrong");

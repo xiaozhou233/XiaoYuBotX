@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 心跳事件类
 public class HeartbeatEvent extends MetaEvent {
-    private JsonNode status;
-    private long interval;
+    private final JsonNode status;
+    private final long interval;
 
     public HeartbeatEvent(JsonNode jsonNode) {
         super(jsonNode);

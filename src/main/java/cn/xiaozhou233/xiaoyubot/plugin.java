@@ -4,7 +4,6 @@ import cn.xiaozhou233.xiaoyubot.onebotapi.event.message.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.meta.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.notice.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.request.*;
-import cn.xiaozhou233.xiaoyubot.onebotapi.message.MessageSegment;
 
 public interface plugin {
     // 插件加载与卸载

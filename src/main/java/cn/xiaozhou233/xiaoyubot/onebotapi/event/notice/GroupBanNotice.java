@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群禁言事件
 public class GroupBanNotice extends NoticeEvent {
-    private String subType;
-    private long groupId;
-    private long operatorId;
-    private long userId;
-    private long duration;
+    private final String subType;
+    private final long groupId;
+    private final long operatorId;
+    private final long userId;
+    private final long duration;
 
     public String getSubType() {
         return subType;

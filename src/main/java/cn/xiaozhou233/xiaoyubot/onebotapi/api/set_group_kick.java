@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class set_group_kick {
-    private long group_id;
-    private long user_id;
+    private final long group_id;
+    private final long user_id;
     private boolean reject_add_request = false;
 
     public set_group_kick(long group_id, long user_id) {

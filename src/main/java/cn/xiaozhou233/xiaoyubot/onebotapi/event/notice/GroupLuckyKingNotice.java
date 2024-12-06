@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群红包运气王事件
 public class GroupLuckyKingNotice extends NoticeEvent {
-    private String subType;
-    private long groupId;
-    private long userId;
-    private long targetId;
+    private final String subType;
+    private final long groupId;
+    private final long userId;
+    private final long targetId;
 
     public String subType() {
         return subType;

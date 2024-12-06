@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群管理员变动事件
 public class GroupAdminNotice extends NoticeEvent {
-    private String subType;
-    private long groupId;
-    private long userId;
+    private final String subType;
+    private final long groupId;
+    private final long userId;
 
     public String subType() {
         return subType;

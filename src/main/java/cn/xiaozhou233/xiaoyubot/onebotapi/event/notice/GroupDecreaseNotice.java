@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群成员减少事件
 public class GroupDecreaseNotice extends NoticeEvent {
-    private String subType;
-    private long groupId;
-    private long operatorId;
-    private long userId;
+    private final String subType;
+    private final long groupId;
+    private final long operatorId;
+    private final long userId;
 
     public String getSubType() {
         return subType;

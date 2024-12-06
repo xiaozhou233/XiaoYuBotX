@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群消息事件
 public class GroupMessageEvent extends MessageEvent {
-    private String subType;
-    private long groupId;
+    private final String subType;
+    private final long groupId;
     private Anonymous anonymous;
     private Sender sender;
 
@@ -27,9 +27,9 @@ public class GroupMessageEvent extends MessageEvent {
     }
 
     public static class Anonymous {
-        private long id;
-        private String name;
-        private String flag;
+        private final long id;
+        private final String name;
+        private final String flag;
 
         public Anonymous(JsonNode anonymousNode) {
             this.id = anonymousNode.path("id").asLong(0);                // 默认值为 0
@@ -44,15 +44,15 @@ public class GroupMessageEvent extends MessageEvent {
     }
 
     public static class Sender {
-        private long userId;
-        private String nickname;
-        private String card;
-        private String sex;
-        private int age;
-        private String area;
-        private String level;
-        private String role;
-        private String title;
+        private final long userId;
+        private final String nickname;
+        private final String card;
+        private final String sex;
+        private final int age;
+        private final String area;
+        private final String level;
+        private final String role;
+        private final String title;
 
         public Sender(JsonNode senderNode) {
             this.userId = senderNode.path("user_id").asLong(0);                // 默认值为 0
@@ -91,7 +91,7 @@ public class GroupMessageEvent extends MessageEvent {
     }
 
     public void fastReply(String message, boolean isReplyFormat) {
-        String content = null;
+        String content;
         if(isReplyFormat){
             content = "[CQ:reply,id=%s] %s".formatted(String.valueOf(messageId), message);
         }else {

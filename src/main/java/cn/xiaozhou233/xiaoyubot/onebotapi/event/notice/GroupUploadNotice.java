@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群文件上传事件
 public class GroupUploadNotice extends NoticeEvent {
-    private long groupId;
-    private long userId;
+    private final long groupId;
+    private final long userId;
 
     public long groupId() {
         return groupId;
@@ -32,16 +32,12 @@ public class GroupUploadNotice extends NoticeEvent {
     }
 
     public static class File {
-        private String id;
-        private String name;
-        private long size;
-        private long busid;
 
         public File(JsonNode fileNode) {
-            this.id = fileNode.get("id").asText();
-            this.name = fileNode.get("name").asText();
-            this.size = fileNode.get("size").asLong();
-            this.busid = fileNode.get("busid").asLong();
+            String id = fileNode.get("id").asText();
+            String name = fileNode.get("name").asText();
+            long size = fileNode.get("size").asLong();
+            long busid = fileNode.get("busid").asLong();
         }
     }
 }

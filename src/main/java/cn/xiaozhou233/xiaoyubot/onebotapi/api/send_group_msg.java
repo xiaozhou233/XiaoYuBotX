@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class send_group_msg {
-    private long groupId;
-    private String message;
+    private final long groupId;
+    private final String message;
     private boolean autoEscape = false;
 
     // 使用构造器重载，让用户选择是否提供autoEscape

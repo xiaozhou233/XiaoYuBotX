@@ -15,7 +15,7 @@ import java.util.jar.JarFile;
 
 
 public class PluginManager {
-    private static List<plugin> plugins = new ArrayList<>();
+    private static final List<plugin> plugins = new ArrayList<>();
     private static final String PLUGIN_PATH = "plugins";
 
     public static void loadPlugins(){
@@ -31,13 +31,17 @@ public class PluginManager {
                 if (metadata == null) continue;
 
                 URL url = pluginFile.toURI().toURL();
-                ClassLoader classLoader = new URLClassLoader(new URL[]{url});
-                Class<?> pluginClass = classLoader.loadClass(metadata.mainClass);
-                plugin plugin = (cn.xiaozhou233.xiaoyubot.plugin) pluginClass.getDeclaredConstructor().newInstance();
-                plugin.onEnable();
-                plugins.add(plugin);
+                try(URLClassLoader classLoader = new URLClassLoader(new URL[]{url})) {
+                    Class<?> pluginClass = classLoader.loadClass(metadata.mainClass);
+                    plugin plugin = (cn.xiaozhou233.xiaoyubot.plugin) pluginClass.getDeclaredConstructor().newInstance();
+                    plugin.onEnable();
+                    plugins.add(plugin);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("[PluginManager] Error loading plugin " + pluginFile.getName() + " " + e.getMessage());
             }
         }
     }
@@ -62,7 +66,7 @@ public class PluginManager {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error reading plugin.toml: " + e.getMessage());
         }
         return null;
     }
@@ -74,20 +78,7 @@ public class PluginManager {
     }
 
 
-    private static class PluginMetadata {
-        final String name;
-        final String version;
-        final String mainClass;
-
-        PluginMetadata(String name, String version, String mainClass) {
-            this.name = name;
-            this.version = version;
-            this.mainClass = mainClass;
-        }
-    }
-
-    public static void main(String[] args) {
-        loadPlugins();
+    private record PluginMetadata(String name, String version, String mainClass) {
     }
 
 }

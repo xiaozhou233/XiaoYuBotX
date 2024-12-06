@@ -4,10 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 // 群消息撤回事件
 public class GroupRecallNotice extends NoticeEvent {
-    private long groupId;
-    private long userId;
-    private long operatorId;
-    private long messageId;
+    private final long groupId;
+    private final long userId;
+    private final long operatorId;
+    private final long messageId;
 
     public long groupId() {
         return groupId;

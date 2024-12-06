@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CallAPI {
@@ -24,7 +23,6 @@ public class CallAPI {
             System.out.println("[INFO] Status: " + responseJson.get("status") + ", Retcode: " + responseJson.get("retcode"));
         } catch (IOException e) {
             System.err.println("[ERROR] Failed to call API " + action + " with params: " + params);
-            e.printStackTrace();
             throw new RuntimeException("API call failed: " + e.getMessage(), e);
         }
     }
