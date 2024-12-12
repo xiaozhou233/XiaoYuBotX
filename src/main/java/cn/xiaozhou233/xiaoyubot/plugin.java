@@ -5,37 +5,41 @@ import cn.xiaozhou233.xiaoyubot.onebotapi.event.meta.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.notice.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.request.*;
 
-public interface plugin {
-    // 插件加载与卸载
-    void onEnable();
-    void onDisable();
+public abstract class plugin {
+
+    public abstract void onEnable();
+
+    public abstract void onDisable();
 
     // 消息事件处理
-    default void onPrivateMessage(PrivateMessageEvent messageEvent) {}
-    default void onGroupMessage(GroupMessageEvent messageEvent) {}
-    default void onAtBot(GroupMessageEvent messageEvent) {}
+    public void onPrivateMessage(PrivateMessageEvent messageEvent) {}
+    public void onGroupMessage(GroupMessageEvent messageEvent) {}
+    public void onAtBot(GroupMessageEvent messageEvent) {}
 
     // 元事件处理
-    default void onHeartbeat(HeartbeatEvent heartbeatEvent) {}
-    default void onLifecycle(LifecycleEvent lifecycleEvent) {}
+    public void onHeartbeat(HeartbeatEvent heartbeatEvent) {}
+
+    public void onLifecycle(LifecycleEvent lifecycleEvent) {
+
+    }
 
     // 通知事件处理
-    default void onFriendAdd(FriendAddNotice friendAddNotice) {}
-    default void onFriendRecall(FriendRecallNotice friendRecallNotice) {}
-    default void onGroupAdmin(GroupAdminNotice groupAdminNotice) {}
-    default void onGroupBan(GroupBanNotice groupBanNotice) {}
-    default void onGroupDecrease(GroupDecreaseNotice groupDecreaseNotice) {}
-    default void onGroupHonorChange(GroupHonorChangeNotice groupHonorChangeNotice) {}
-    default void onGroupIncrease(GroupIncreaseNotice groupIncreaseNotice) {}
-    default void onGroupLuckyKing(GroupLuckyKingNotice groupLuckyKingNotice) {}
-    default void onGroupPoke(GroupPokeNotice groupPokeNotice) {}
-    default void onGroupRecall(GroupRecallNotice groupRecallNotice) {}
-    default void onGroupUpload(GroupUploadNotice groupUploadNotice) {}
+    public void onFriendAdd(FriendAddNotice friendAddNotice) {}
+    public void onFriendRecall(FriendRecallNotice friendRecallNotice) {}
+    public void onGroupAdmin(GroupAdminNotice groupAdminNotice) {}
+    public void onGroupBan(GroupBanNotice groupBanNotice) {}
+    public void onGroupDecrease(GroupDecreaseNotice groupDecreaseNotice) {}
+    public void onGroupHonorChange(GroupHonorChangeNotice groupHonorChangeNotice) {}
+    public void onGroupIncrease(GroupIncreaseNotice groupIncreaseNotice) {}
+    public void onGroupLuckyKing(GroupLuckyKingNotice groupLuckyKingNotice) {}
+    public void onGroupPoke(GroupPokeNotice groupPokeNotice) {}
+    public void onGroupRecall(GroupRecallNotice groupRecallNotice) {}
+    public void onGroupUpload(GroupUploadNotice groupUploadNotice) {}
 
     // 请求事件处理
-    default void onFriendRequest(FriendRequestEvent friendRequestEvent) {}
-    default void onGroupRequest(GroupRequestEvent groupRequestEvent) {}
+    public void onFriendRequest(FriendRequestEvent friendRequestEvent) {}
+    public void onGroupRequest(GroupRequestEvent groupRequestEvent) {}
 
     // 筱雨框架事件
-    default void onTriggerKeyword(String keyword, GroupMessageEvent messageEvent) {}
+    public void onTriggerKeyword(String keyword, GroupMessageEvent messageEvent) {}
 }
