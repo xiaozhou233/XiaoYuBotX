@@ -52,7 +52,7 @@ public abstract class plugin {
     public void setConfigManager(ConfigManager configManager) {
         this.configManager = configManager;
     }
-    public ConfigManager getConfigManager() {
+    public ConfigManager getConfig() {
         return configManager;
     }
     public void setLogger(TaggedLogger logger){
