@@ -1,10 +1,13 @@
 package cn.xiaozhou233.xiaoyubot.network;
 
 import okhttp3.*;
+import org.tinylog.Logger;
+import org.tinylog.TaggedLogger;
 
 public class WebSocketClient {
     private OkHttpClient client;
     private WebSocket webSocket;
+    private static final TaggedLogger logger = Logger.tag("WebSocketClient");
 
     public WebSocketClient() {
         // Lazy initialization
@@ -22,7 +25,7 @@ public class WebSocketClient {
         if (webSocket != null) {
             webSocket.send(message);
         } else {
-            System.err.println("[WARN] Cannot send message, WebSocket is not connected.");
+            logger.warn("[WARN] WebSocket is not connected, cannot send message.");
         }
     }
 

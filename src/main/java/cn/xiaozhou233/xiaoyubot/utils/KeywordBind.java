@@ -2,14 +2,18 @@ package cn.xiaozhou233.xiaoyubot.utils;
 
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.message.GroupMessageEvent;
 import cn.xiaozhou233.xiaoyubot.plugin;
+import org.tinylog.Logger;
+import org.tinylog.TaggedLogger;
 
 import java.util.HashMap;
 
 public class KeywordBind {
     private static final HashMap<String, plugin> bind = new HashMap<>();
+    private static final TaggedLogger logger = Logger.tag("KeywordBind");
+
     public static void bind(plugin pluginInstance, String keyword){
         if (bind.containsKey(keyword))
-            System.out.println("[Warn] KeywordBind Manager found a keyword conflict: " + keyword + "something maybe wrong");
+            logger.warn("Keyword {} is already bind! something wrong maybe happen.", keyword);
         bind.put(keyword, pluginInstance);
     }
 

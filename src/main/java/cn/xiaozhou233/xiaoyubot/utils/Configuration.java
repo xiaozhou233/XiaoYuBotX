@@ -2,6 +2,8 @@ package cn.xiaozhou233.xiaoyubot.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.tinylog.Logger;
+import org.tinylog.TaggedLogger;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,28 +17,29 @@ public class Configuration {
     private static final File configFile = new File(configPath);
     private static JsonNode configNode;
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final TaggedLogger logger = Logger.tag("BotConfig");
 
     public Configuration() {
         if (!configFile.exists()) {
             try {
                 boolean created = configFile.createNewFile();
                 if (!created) {
-                    System.out.println("[Error] Failed to create config file.");
+                    logger.error("Failed to create config file.");
                 }
                 initConfig();
             } catch (IOException e) {
-                System.out.println("[Error] Failed to create config file.");
-                throw new RuntimeException(e);
+                logger.error("Failed to create config file.");
+                logger.trace(e);
             }
         }
 
         // read content
         try {
             configNode = objectMapper.readTree(configFile);
-            System.out.println("[Info] Config file loaded successfully.");
+            logger.info("Config file loaded successfully.");
         }catch (Exception e) {
-            System.out.println("[Error] Failed to read config file.");
-            throw new RuntimeException(e);
+            logger.error("Failed to read config file.");
+            logger.trace(e);
         }
     }
 
@@ -53,8 +56,7 @@ public class Configuration {
                 }
             }
         } catch (IOException e) {
-            System.out.println("[Error] Failed to initialize config file.");
-            throw new RuntimeException(e);
+            logger.error("Failed to initialize config file.");
         }
     }
     public JsonNode getConfigNode() {

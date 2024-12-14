@@ -1,11 +1,14 @@
 package cn.xiaozhou233.xiaoyubot.network;
 
 import okhttp3.*;
+import org.tinylog.Logger;
+import org.tinylog.TaggedLogger;
 
 import java.io.IOException;
 
 public class HttpClient {
     private static final OkHttpClient CLIENT = new OkHttpClient();
+    private static final TaggedLogger logger = Logger.tag("HttpClient");
 
     // Send GET request
     public String get(String url) throws IOException {
@@ -15,7 +18,7 @@ public class HttpClient {
 
         try (Response response = CLIENT.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Unexpected response code: " + response.code());
+                logger.error("Unexpected response code: " + response.code());
             }
             return response.body().string();
         }
@@ -31,7 +34,7 @@ public class HttpClient {
 
         try (Response response = CLIENT.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("Unexpected response code: " + response.code());
+                logger.error("Unexpected response code: " + response.code());
             }
             return response.body().string();
         }

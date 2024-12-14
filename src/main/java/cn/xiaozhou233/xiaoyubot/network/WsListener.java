@@ -6,13 +6,16 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.jetbrains.annotations.NotNull;
+import org.tinylog.Logger;
+import org.tinylog.TaggedLogger;
 
 public class WsListener extends WebSocketListener {
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private static final TaggedLogger logger = Logger.tag("WebSocketClient");
 
     @Override
     public void onOpen(@NotNull WebSocket webSocket, Response response) {
-        System.out.printf("[INFO] Connected to WebSocket! [%s]%n", response.request().url());
+        logger.info("Connected to WebSocket! [{}]", response.request().url());
     }
 
     @Override
@@ -21,21 +24,21 @@ public class WsListener extends WebSocketListener {
         try {
             MessageHandle.handle(MAPPER.readTree(text));
         } catch (Exception e) {
-            System.err.println("[WARN] Failed to parse JSON message: " + text);
-            e.printStackTrace();
+            logger.error(e, "Failed to parse message: {}", text);
+            logger.trace(e);
         }
     }
 
     @Override
     public void onClosing(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
-        System.out.println("[WARN] WebSocket is closing: " + reason);
+        logger.warn("WebSocket connection closing: {} - {}", code, reason);
     }
 
     @Override
     public void onFailure(@NotNull WebSocket webSocket, Throwable t, Response response) {
-        System.err.println("[ERROR] WebSocket connection failed: " + t.getMessage());
+        logger.error(t, "WebSocket connection failed");
         if (response != null) {
-            System.err.println("[ERROR] Response code: " + response.code());
+            logger.error("Response code: {}", response.code());
         }
     }
 }

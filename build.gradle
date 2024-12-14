@@ -11,14 +11,21 @@ repositories {
 }
 
 dependencies {
+    // OKHttp
     // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '5.0.0-alpha.14'
+
+    // Jackson
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.18.1'
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.1'
-    // https://mvnrepository.com/artifact/org.tomlj/tomlj
-    implementation group: 'org.tomlj', name: 'tomlj', version: '1.1.1'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.2")
+
+    // TinyLog
+    implementation 'org.tinylog:tinylog-api:2.7.0'
+    implementation 'org.tinylog:tinylog-impl:2.7.0'
 }
 
 // build artifact (with dependencies)
