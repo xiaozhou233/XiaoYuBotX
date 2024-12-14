@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.utils;
 
+import cn.xiaozhou233.xiaoyubot.configuration.ConfigManager;
 import cn.xiaozhou233.xiaoyubot.plugin;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,10 +38,15 @@ public class PluginManager {
                 PluginMetadata metadata = getPluginMetadata(pluginFile);
                 if (metadata == null) continue;
 
+                // ConfigManager
+                ConfigManager configManager = new ConfigManager(metadata.name, pluginFile);
+
                 URL url = pluginFile.toURI().toURL();
                 try(URLClassLoader classLoader = new URLClassLoader(new URL[]{url})) {
                     Class<?> pluginClass = classLoader.loadClass(metadata.mainClass);
                     plugin plugin = (cn.xiaozhou233.xiaoyubot.plugin) pluginClass.getDeclaredConstructor().newInstance();
+                    plugin.setConfigManager(configManager);
+                    plugin.setLogger(Logger.tag(metadata.name));
                     plugin.onEnable();
                     plugins.add(plugin);
                 } catch (Exception e) {

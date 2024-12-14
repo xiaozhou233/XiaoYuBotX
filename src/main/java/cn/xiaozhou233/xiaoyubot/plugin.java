@@ -1,11 +1,15 @@
 package cn.xiaozhou233.xiaoyubot;
 
+import cn.xiaozhou233.xiaoyubot.configuration.ConfigManager;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.message.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.meta.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.notice.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.request.*;
+import org.tinylog.TaggedLogger;
 
 public abstract class plugin {
+    private ConfigManager configManager;
+    private TaggedLogger logger;
 
     public abstract void onEnable();
 
@@ -42,4 +46,19 @@ public abstract class plugin {
 
     // 筱雨框架事件
     public void onTriggerKeyword(String keyword, GroupMessageEvent messageEvent) {}
+
+    // 筱雨框架
+
+    public void setConfigManager(ConfigManager configManager) {
+        this.configManager = configManager;
+    }
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+    public void setLogger(TaggedLogger logger){
+        this.logger = logger;
+    }
+    public TaggedLogger getLogger(){
+        return logger;
+    }
 }
