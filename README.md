@@ -15,15 +15,12 @@
 ### **注意！java版本需要 17+**
 ```shell
     # 构建完整项目 用于正常使用(包含第三方库)
-    ./gradlew shadowJar
-```
-
-```shell
-    # 构建SDK 用于插件编写 (不包含第三方库)
     ./gradlew build
 ```
 
-如果不出意外的话，输出文件在/out文件夹下(SDK则在/build/libs下)
+如果不出意外的话，输出文件在/out文件夹下
+ - XiaoYubotX_<版本>.jar : 主文件
+ - XiaoYuBotX_SDK_<版本>.jar : SDK文件，用于插件编写
 
 ## 如何使用
 ```shell

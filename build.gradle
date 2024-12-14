@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'cn.xiaozhou233.xiaoyubot'
-version = 'Release_1.0.3'
+version = '1.0.3'
 
 repositories {
     mavenCentral()
@@ -21,10 +21,10 @@ dependencies {
     implementation group: 'org.tomlj', name: 'tomlj', version: '1.1.1'
 }
 
+// build artifact (with dependencies)
 shadowJar {
     destinationDirectory = file("${project.projectDir}/out")
-    archiveFileName.set("${project.name}-${project.version}.jar")
-    archiveVersion.set("${project.version}")
+    archiveFileName.set("${project.name}_${project.version}.jar")
     manifest {
         attributes(
                 'Implementation-Title': 'XiaoYuBotX',
@@ -32,4 +32,24 @@ shadowJar {
                 'Main-Class': 'cn.xiaozhou233.xiaoyubot.XiaoYuBotX'
         )
     }
+}
+
+// build sdk (without dependencies)
+tasks.jar {
+    destinationDirectory = file("${project.projectDir}/out")
+    archiveFileName.set("${project.name}_SDK_${project.version}.jar")
+    manifest {
+        attributes(
+                'Implementation-Title': 'XiaoYuBotX',
+                'Implementation-Version': version,
+                'Main-Class': 'cn.xiaozhou233.xiaoyubot.XiaoYuBotX'
+        )
+    }
+}
+
+tasks.named('build') {
+    // clean
+    dependsOn(tasks.clean)
+    // build
+    dependsOn(tasks.shadowJar, tasks.jar)
 }
