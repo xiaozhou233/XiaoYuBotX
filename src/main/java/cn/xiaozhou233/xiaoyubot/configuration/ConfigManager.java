@@ -7,7 +7,9 @@ import org.tinylog.Logger;
 import org.tinylog.TaggedLogger;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
@@ -93,6 +95,10 @@ public class ConfigManager {
         return result.get(key).asBoolean();
     }
 
+    public getList getList(String key){
+        return new getList(key);
+    }
+
     public Object get(String key){
         return result.get(key);
     }
@@ -103,6 +109,32 @@ public class ConfigManager {
         }
         logger.warn("ConfigManager for plugin {} does not exist", name);
         return null;
+    }
+
+    public class getList {
+        private JsonNode listNode;
+        public getList(String key){
+            listNode = result.get(key);
+            if (listNode == null || !listNode.isArray()) {
+                logger.warn("Key '{}' does not exist or is not a list", key);
+            }
+        }
+
+        public List<String> asStringList() {
+            List<String> list = new ArrayList<>();
+            listNode.forEach(node -> list.add(node.asText()));
+            return list;
+        }
+        public List<Long> asLongList() {
+            List<Long> list = new ArrayList<>();
+            listNode.forEach(node -> list.add(node.asLong()));
+            return list;
+        }
+        public List<Object> asObjectList() {
+            List<Object> list = new ArrayList<>();
+            listNode.forEach(node -> list.add(node.asText()));
+            return list;
+        }
     }
 
 }

@@ -9,7 +9,11 @@ public class FriendRequestEvent extends RequestEvent {
         super(jsonNode);
     }
 
-    public class FastAction {
+    public fastAction fastAction(){
+        return new fastAction();
+    }
+
+    public class fastAction {
         public void accept() {
             String flag = getFlag();
             boolean approve = true;
