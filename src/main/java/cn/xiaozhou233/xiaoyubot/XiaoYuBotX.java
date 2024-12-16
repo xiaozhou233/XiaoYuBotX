@@ -8,6 +8,9 @@ import org.tinylog.TaggedLogger;
 
 public class XiaoYuBotX {
     public static String httpUrl;
+    public static String wsUrl;
+    public static Configuration configuration;
+    public static WebSocketClient webSocketClient;
     private static final TaggedLogger logger = Logger.tag("Main");
     public static void main(String[] args) {
         try {
@@ -15,14 +18,14 @@ public class XiaoYuBotX {
 
             // 加载配置
             logger.info("Loading configuration...");
-            Configuration configuration = new Configuration();
-            String wsUrl = configuration.getConfigNode().get("wsUrl").asText();
+            configuration = new Configuration();
+            wsUrl = configuration.getConfigNode().get("wsUrl").asText();
             httpUrl = configuration.getConfigNode().get("httpUrl").asText();
 
             // 连接 WebSocket
             logger.info("Connecting to WebSocket...");
-            WebSocketClient webSocketClient = new WebSocketClient();
-            webSocketClient.connect(wsUrl);
+            webSocketClient = new WebSocketClient(wsUrl);
+            webSocketClient.connect();
 
             // 加载插件
             logger.info("Loading plugins...");
