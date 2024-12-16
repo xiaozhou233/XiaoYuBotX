@@ -10,22 +10,26 @@ public class XiaoYuBotX {
     public static String httpUrl;
     private static final TaggedLogger logger = Logger.tag("Main");
     public static void main(String[] args) {
-        logger.info("Starting...");
+        try {
+            logger.info("Starting...");
 
-        // 加载配置
-        logger.info("Loading configuration...");
-        Configuration configuration = new Configuration();
-        String wsUrl = configuration.getConfigNode().get("wsUrl").asText();
-        httpUrl = configuration.getConfigNode().get("httpUrl").asText();
+            // 加载配置
+            logger.info("Loading configuration...");
+            Configuration configuration = new Configuration();
+            String wsUrl = configuration.getConfigNode().get("wsUrl").asText();
+            httpUrl = configuration.getConfigNode().get("httpUrl").asText();
 
-        // 连接 WebSocket
-        logger.info("Connecting to WebSocket...");
-        WebSocketClient webSocketClient = new WebSocketClient();
-        webSocketClient.connect(wsUrl);
+            // 连接 WebSocket
+            logger.info("Connecting to WebSocket...");
+            WebSocketClient webSocketClient = new WebSocketClient();
+            webSocketClient.connect(wsUrl);
 
-        // 加载插件
-        logger.info("Loading plugins...");
-        PluginManager.loadPlugins();
-        logger.info("XiaoYuBotX is Ready!");
+            // 加载插件
+            logger.info("Loading plugins...");
+            PluginManager.loadPlugins();
+            logger.info("XiaoYuBotX is Ready!");
+        } catch (Exception e) {
+            logger.trace(e);
+        }
     }
 }

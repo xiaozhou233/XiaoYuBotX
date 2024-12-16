@@ -23,7 +23,11 @@ public class CallAPI {
             JsonNode responseJson = OBJECT_MAPPER.readTree(httpResponse);
 
             // Log the status and retcode from the response JSON
-            logger.info("Status: {}, Retcode: {}", responseJson.get("status"), responseJson.get("retcode"));
+            if (responseJson.get("status").asText().equals("ok")){
+                logger.info("API {} call successful", action);
+            }else {
+                logger.info("Unknown Status: Status: {}, Retcode: {}", responseJson.get("status"), responseJson.get("retcode"));
+            }
         } catch (IOException e) {
             logger.error("Failed to call API {} with params: {}", action, params);
             logger.trace(e);

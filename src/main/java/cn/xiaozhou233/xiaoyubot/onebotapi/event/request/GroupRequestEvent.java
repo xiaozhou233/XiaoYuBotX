@@ -26,7 +26,7 @@ public class GroupRequestEvent extends RequestEvent {
         return new fastAction();
     }
 
-    public class fastAction{
+    private class fastAction{
         public void accept() {
             String flag = getFlag();
             String sub_type = getSubType();

@@ -13,7 +13,7 @@ public class FriendRequestEvent extends RequestEvent {
         return new fastAction();
     }
 
-    public class fastAction {
+    private class fastAction {
         public void accept() {
             String flag = getFlag();
             boolean approve = true;

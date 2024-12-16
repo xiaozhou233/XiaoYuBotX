@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="EchoPlugin:jar">
-    <output-path>$PROJECT_DIR$/running/plugins</output-path>
-    <root id="archive" name="EchoPlugin.jar">
-      <element id="module-output" name="EchoPlugin.main" />
-      <element id="dir-copy" path="$PROJECT_DIR$/EchoPlugin/src/main/resources" />
-    </root>
-  </artifact>
-</component>

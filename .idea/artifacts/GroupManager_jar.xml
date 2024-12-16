@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="GroupManager:jar">
-    <output-path>$PROJECT_DIR$/running/plugins</output-path>
-    <root id="archive" name="GroupManager.jar">
-      <element id="module-output" name="GroupManager.main" />
-      <element id="dir-copy" path="$PROJECT_DIR$/../XiaoYuBotXPlugins/GroupManager/src/main/resources" />
-    </root>
-  </artifact>
-</component>
