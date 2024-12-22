@@ -3,8 +3,9 @@ package cn.xiaozhou233.xiaoyubot.configuration;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.io.*;
 import java.util.ArrayList;
@@ -15,12 +16,13 @@ import java.util.jar.JarFile;
 
 public class ConfigManager {
     private static HashMap<String, ConfigManager> configMap = new HashMap<>();
-    private static final TaggedLogger logger = Logger.tag("ConfigManager");
     private static final ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
     private final String name;
     private final File pluginFile;
     private final File configFile;
     private JsonNode result;
+    private static final Logger logger = LoggerFactory.getLogger("ConfigManager");
+
     public ConfigManager(String name, File pluginFile) {
         this.name = name;
         this.pluginFile = pluginFile;
@@ -35,7 +37,7 @@ public class ConfigManager {
             return;
         }
 
-        if (!configFile.getParentFile().exists() && !configFile.exists()){
+        if (!configFile.getParentFile().exists() && !configFile.exists()) {
             boolean status = copyConfig();
             // if not config
             if (!status) {
@@ -75,8 +77,9 @@ public class ConfigManager {
                     outputStream.write(buffer, 0, bytesRead);
                 }
             }
-        }catch (Exception e){
-            logger.error(e, "Failed to copy config file for plugin {}", name);
+        } catch (Exception e) {
+            logger.error("Failed to copy config file for plugin {}", name);
+            logger.error(String.valueOf(e));
         }
         return true;
     }
@@ -95,11 +98,11 @@ public class ConfigManager {
         return result.get(key).asBoolean();
     }
 
-    public getList getList(String key){
+    public getList getList(String key) {
         return new getList(key);
     }
 
-    public Object get(String key){
+    public Object get(String key) {
         return result.get(key);
     }
 
@@ -112,8 +115,9 @@ public class ConfigManager {
     }
 
     public class getList {
-        private JsonNode listNode;
-        public getList(String key){
+        private final JsonNode listNode;
+
+        public getList(String key) {
             listNode = result.get(key);
             if (listNode == null || !listNode.isArray()) {
                 logger.warn("Key '{}' does not exist or is not a list", key);
@@ -125,11 +129,13 @@ public class ConfigManager {
             listNode.forEach(node -> list.add(node.asText()));
             return list;
         }
+
         public List<Long> asLongList() {
             List<Long> list = new ArrayList<>();
             listNode.forEach(node -> list.add(node.asLong()));
             return list;
         }
+
         public List<Object> asObjectList() {
             List<Object> list = new ArrayList<>();
             listNode.forEach(node -> list.add(node.asText()));

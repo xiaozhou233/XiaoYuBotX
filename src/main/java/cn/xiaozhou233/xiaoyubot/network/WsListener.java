@@ -7,12 +7,12 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.jetbrains.annotations.NotNull;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WsListener extends WebSocketListener {
     private static final ObjectMapper MAPPER = new ObjectMapper();
-    private static final TaggedLogger logger = Logger.tag("WebSocketClient");
+    private static final Logger logger = LoggerFactory.getLogger("WebSocketClient");
     private static final int MAX_RETRY = XiaoYuBotX.configuration.getConfigNode().get("maxRetry").asInt();
     private static final int retryInterval = XiaoYuBotX.configuration.getConfigNode().get("retryInterval").asInt();
     private static int retryCount = 0;
@@ -29,8 +29,8 @@ public class WsListener extends WebSocketListener {
         try {
             MessageHandle.handle(MAPPER.readTree(text));
         } catch (Exception e) {
-            logger.error(e, "Failed to parse message: {}", text);
-            logger.trace(e);
+            logger.error("Failed to parse message: {}", text);
+            logger.trace(String.valueOf(e));
         }
     }
 
@@ -41,7 +41,7 @@ public class WsListener extends WebSocketListener {
 
     @Override
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, Response response) {
-        logger.error(t, "WebSocket connection failed");
+        logger.error("WebSocket connection failed {}", t.getMessage());
         if (response != null) {
             logger.error("Response code: {}", response.code());
         }
@@ -52,7 +52,7 @@ public class WsListener extends WebSocketListener {
             try {
                 Thread.sleep(retryInterval);
             } catch (InterruptedException e) {
-                logger.error(e);
+                logger.error(String.valueOf(e));
             }
             logger.info("Retrying WebSocket connection... (Attempt {})", retryCount);
             XiaoYuBotX.webSocketClient.reconnect();

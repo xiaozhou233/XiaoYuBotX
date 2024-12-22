@@ -2,8 +2,8 @@ package cn.xiaozhou233.xiaoyubot.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +17,7 @@ public class Configuration {
     private static final File configFile = new File(configPath);
     private static JsonNode configNode;
     private static final ObjectMapper objectMapper = new ObjectMapper();
-    private static final TaggedLogger logger = Logger.tag("BotConfig");
+    private static final Logger logger = LoggerFactory.getLogger("BotConfig");
 
     public Configuration() {
         if (!configFile.exists()) {
@@ -29,7 +29,7 @@ public class Configuration {
                 initConfig();
             } catch (IOException e) {
                 logger.error("Failed to create config file.");
-                logger.trace(e);
+                logger.trace(String.valueOf(e));
             }
         }
 
@@ -39,7 +39,7 @@ public class Configuration {
             logger.info("Config file loaded successfully.");
         }catch (Exception e) {
             logger.error("Failed to read config file.");
-            logger.trace(e);
+            logger.trace(String.valueOf(e));
         }
     }
 

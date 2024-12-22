@@ -1,14 +1,14 @@
 package cn.xiaozhou233.xiaoyubot.network;
 
 import okhttp3.*;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebSocketClient {
     private OkHttpClient client;
     private WebSocket webSocket;
     private final String url;
-    private static final TaggedLogger logger = Logger.tag("WebSocketClient");
+    private static final Logger logger = LoggerFactory.getLogger("WebSocketClient");
 
     public WebSocketClient(String url) {
         this.url = url;

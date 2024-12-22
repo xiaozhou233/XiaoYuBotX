@@ -3,36 +3,34 @@ package cn.xiaozhou233.xiaoyubot;
 import cn.xiaozhou233.xiaoyubot.network.WebSocketClient;
 import cn.xiaozhou233.xiaoyubot.utils.Configuration;
 import cn.xiaozhou233.xiaoyubot.utils.PluginManager;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XiaoYuBotX {
     public static String httpUrl;
     public static String wsUrl;
     public static Configuration configuration;
     public static WebSocketClient webSocketClient;
-    private static final TaggedLogger logger = Logger.tag("Main");
+    private static final Logger logger = LoggerFactory.getLogger("XiaoYuBotX");
+
     public static void main(String[] args) {
-        try {
-            logger.info("Starting...");
+        // setting default uncaught exception handler
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) ->
+                logger.error("Unhandled exception in thread {}", thread.getName(), throwable));
 
-            // 加载配置
-            logger.info("Loading configuration...");
-            configuration = new Configuration();
-            wsUrl = configuration.getConfigNode().get("wsUrl").asText();
-            httpUrl = configuration.getConfigNode().get("httpUrl").asText();
+        logger.info("Starting...");
 
-            // 连接 WebSocket
-            logger.info("Connecting to WebSocket...");
-            webSocketClient = new WebSocketClient(wsUrl);
-            webSocketClient.connect();
+        logger.info("Loading configuration...");
+        configuration = new Configuration();
+        wsUrl = configuration.getConfigNode().get("wsUrl").asText();
+        httpUrl = configuration.getConfigNode().get("httpUrl").asText();
 
-            // 加载插件
-            logger.info("Loading plugins...");
-            PluginManager.loadPlugins();
-            logger.info("XiaoYuBotX is Ready!");
-        } catch (Exception e) {
-            logger.trace(e);
-        }
+        logger.info("Connecting to WebSocket server...");
+        webSocketClient = new WebSocketClient(wsUrl);
+        webSocketClient.connect();
+
+        logger.info("Loading plugins...");
+        PluginManager.loadPlugins();
+        logger.info("XiaoYuBotX is ready!");
     }
 }

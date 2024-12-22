@@ -5,8 +5,8 @@ import cn.xiaozhou233.xiaoyubot.plugin;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.net.URL;
@@ -22,8 +22,7 @@ public class PluginManager {
     private static final List<plugin> plugins = new ArrayList<>();
     private static final String PLUGIN_PATH = "plugins";
     private static final ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-    private static final TaggedLogger logger = Logger.tag("PluginManager");
-
+    private static final Logger logger = LoggerFactory.getLogger("PluginManager");
 
     public static void loadPlugins() {
         // check plugin folder exist
@@ -42,20 +41,17 @@ public class PluginManager {
                 ConfigManager configManager = new ConfigManager(metadata.name, pluginFile);
 
                 URL url = pluginFile.toURI().toURL();
-                try(URLClassLoader classLoader = new URLClassLoader(new URL[]{url})) {
+                try (URLClassLoader classLoader = new URLClassLoader(new URL[]{url})) {
                     Class<?> pluginClass = classLoader.loadClass(metadata.mainClass);
                     plugin plugin = (cn.xiaozhou233.xiaoyubot.plugin) pluginClass.getDeclaredConstructor().newInstance();
                     plugin.setConfigManager(configManager);
-                    plugin.setLogger(Logger.tag(metadata.name));
+                    plugin.setLogger(LoggerFactory.getLogger(metadata.name));
                     plugin.onEnable();
                     plugins.add(plugin);
-                } catch (Exception e) {
-                    logger.error("Error loading plugin {}", pluginFile.getName());
-                    logger.trace(e);
                 }
             } catch (Exception e) {
                 logger.error("Error loading plugin {}", pluginFile.getName());
-                logger.trace(e);
+                logger.trace(String.valueOf(e));
             }
         }
     }
@@ -76,16 +72,15 @@ public class PluginManager {
                 if (name != null && version != null && mainClass != null) {
                     return new PluginMetadata(name, version, mainClass);
                 } else {
-                    logger.warn("Missing required fields in plugin.yml of plugin " + pluginFile.getName());
+                    logger.warn("Missing required fields in plugin.yml of plugin {}", pluginFile.getName());
                 }
             }
         } catch (Exception e) {
-            logger.error("Error reading plugin.yml of plugin " + pluginFile.getName());
-            logger.trace(e);
+            logger.error("Error reading plugin.yml of plugin {}", pluginFile.getName());
+            logger.trace(String.valueOf(e));
         }
         return null;
     }
-
 
 
     public static List<plugin> getPlugins() {

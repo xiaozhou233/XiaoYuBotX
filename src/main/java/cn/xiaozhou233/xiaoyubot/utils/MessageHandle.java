@@ -6,11 +6,11 @@ import cn.xiaozhou233.xiaoyubot.onebotapi.event.notice.*;
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.request.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MessageHandle {
-    private static final TaggedLogger logger = Logger.tag("MessageHandle");
+    private static final Logger logger = LoggerFactory.getLogger("MessageHandle");
 
     public static void handle(JsonNode message) {
 
@@ -30,7 +30,7 @@ public class MessageHandle {
                 handleMetaEvent(message);
                 break;
             default:
-                logger.warn("Unknown event type: "+postType);
+                logger.warn("Unknown event type: {}", postType);
                 break;
         }
     }
@@ -62,7 +62,7 @@ public class MessageHandle {
 
                 break;
             default:
-                logger.warn("Unknown message type: " + messageType);
+                logger.warn("Unknown message type: {}", messageType);
                 break;
         }
     }
@@ -80,7 +80,7 @@ public class MessageHandle {
                 PluginManager.getPlugins().forEach(plugin -> plugin.onLifecycle(lifecycleEvent));
                 break;
             default:
-                logger.warn("Unknown meta event type: " + metaEventType);
+                logger.warn("Unknown meta event type: {}", metaEventType);
                 break;
         }
     }
@@ -137,7 +137,7 @@ public class MessageHandle {
                 }
                 break;
             default:
-                logger.warn("Unknown notice type: " + noticeType);
+                logger.warn("Unknown notice type: {}", noticeType);
                 break;
         }
     }
@@ -155,7 +155,7 @@ public class MessageHandle {
                 PluginManager.getPlugins().forEach(plugin -> plugin.onGroupRequest(groupRequest));
                 break;
             default:
-                logger.warn("Unknown request type: " + requestType);
+                logger.warn("Unknown request type: {}", requestType);
                 break;
         }
     }

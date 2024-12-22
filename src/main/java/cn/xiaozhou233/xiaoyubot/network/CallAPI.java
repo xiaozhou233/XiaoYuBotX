@@ -3,8 +3,8 @@ package cn.xiaozhou233.xiaoyubot.network;
 import cn.xiaozhou233.xiaoyubot.XiaoYuBotX;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Map;
@@ -13,7 +13,7 @@ public class CallAPI {
     private static final String HTTP_API = XiaoYuBotX.httpUrl;
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final HttpClient HTTP_CLIENT = new HttpClient();
-    private static final TaggedLogger logger = Logger.tag("OneBotAPI");
+    private static final Logger logger = LoggerFactory.getLogger("OneBotAPI");
 
     public static void call(String action, Map<String, Object> params) {
         System.out.println(params);
@@ -30,7 +30,7 @@ public class CallAPI {
             }
         } catch (IOException e) {
             logger.error("Failed to call API {} with params: {}", action, params);
-            logger.trace(e);
+            logger.error(String.valueOf(e));
         }
     }
 }

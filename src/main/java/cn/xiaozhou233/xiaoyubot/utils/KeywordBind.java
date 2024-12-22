@@ -2,14 +2,14 @@ package cn.xiaozhou233.xiaoyubot.utils;
 
 import cn.xiaozhou233.xiaoyubot.onebotapi.event.message.GroupMessageEvent;
 import cn.xiaozhou233.xiaoyubot.plugin;
-import org.tinylog.Logger;
-import org.tinylog.TaggedLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 
 public class KeywordBind {
     private static final HashMap<String, plugin> bind = new HashMap<>();
-    private static final TaggedLogger logger = Logger.tag("KeywordBind");
+    private static final Logger logger = LoggerFactory.getLogger("KeywordBind");
 
     public static void bind(plugin pluginInstance, String keyword){
         if (bind.containsKey(keyword))
