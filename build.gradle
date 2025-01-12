@@ -27,6 +27,10 @@ dependencies {
     implementation 'org.slf4j:slf4j-api:2.0.13'
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation 'ch.qos.logback:logback-classic:1.5.15'
+
+    // https://mvnrepository.com/artifact/com.googlecode.lanterna/lanterna
+    implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.3'
+
 }
 
 // build artifact (with dependencies)
@@ -42,22 +46,11 @@ shadowJar {
     }
 }
 
-// build sdk (without dependencies)
-tasks.jar {
-    destinationDirectory = file("${project.projectDir}/out")
-    archiveFileName.set("${project.name}_SDK_${project.version}.jar")
-    manifest {
-        attributes(
-                'Implementation-Title': 'XiaoYuBotX',
-                'Implementation-Version': version,
-                'Main-Class': 'cn.xiaozhou233.xiaoyubot.XiaoYuBotX'
-        )
-    }
-}
+
 
 tasks.named('build') {
     // clean
     dependsOn(tasks.clean)
     // build
-    dependsOn(tasks.shadowJar, tasks.jar)
+    dependsOn(tasks.shadowJar)
 }
