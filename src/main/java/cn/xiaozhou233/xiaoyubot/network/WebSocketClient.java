@@ -2,14 +2,12 @@ package cn.xiaozhou233.xiaoyubot.network;
 
 import okhttp3.*;
 import okio.ByteString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.jetbrains.annotations.NotNull;
 
 public class WebSocketClient {
 
     private final OkHttpClient client;
     private WebSocket webSocket;
-    private WebSocketListener listener;
 
     public WebSocketClient() {
         this.client = new OkHttpClient();
@@ -17,35 +15,35 @@ public class WebSocketClient {
 
     public void connect(String url, WebSocketCallback callback) {
         Request request = new Request.Builder().url(url).build();
-        this.listener = new WebSocketListener() {
+        WebSocketListener listener = new WebSocketListener() {
             @Override
-            public void onOpen(WebSocket webSocket, Response response) {
+            public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
                 callback.onOpen(response);
             }
 
             @Override
-            public void onMessage(WebSocket webSocket, String text) {
+            public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
                 callback.onMessage(text);
             }
 
             @Override
-            public void onMessage(WebSocket webSocket, ByteString bytes) {
+            public void onMessage(@NotNull WebSocket webSocket, @NotNull ByteString bytes) {
                 callback.onBinaryMessage(bytes);
             }
 
             @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
+            public void onClosing(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
                 callback.onClosing(code, reason);
                 webSocket.close(1000, null);
             }
 
             @Override
-            public void onClosed(WebSocket webSocket, int code, String reason) {
+            public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
                 callback.onClosed(code, reason);
             }
 
             @Override
-            public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+            public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, Response response) {
                 callback.onFailure(t, response);
             }
         };

@@ -1,26 +1,105 @@
 package cn.xiaozhou233.xiaoyubot.onebot.event.message;
 
-public class GroupMessage extends Message{
-    private long group_id;
-    private anonymous anonymous;
-    private sender sender;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private static class anonymous {
+public class GroupMessage extends Message<GroupMessage.Sender> {
+    @JsonProperty("group_id")
+    private long groupId;
+
+    @JsonProperty("anonymous")
+    private Anonymous anonymous;
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
+
+    public Anonymous getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(Anonymous anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public static class Anonymous {
         private long id;
         private String name;
         private String flag;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getFlag() {
+            return flag;
+        }
+
+        public void setFlag(String flag) {
+            this.flag = flag;
+        }
     }
 
-    public static class sender extends Message.sender {
-        public String card;
-        public String area;
-        public String level;
-        public String role;
-        public String title;
-    }
+    public static class Sender extends Message.Sender {
+        private String card;
+        private String area;
+        private String level;
+        private String role;
+        private String title;
 
-    // TODO: GroupMessage
-    public GroupMessage(){
-        this.sender = new sender();
+        public String getCard() {
+            return card;
+        }
+
+        public void setCard(String card) {
+            this.card = card;
+        }
+
+        public String getArea() {
+            return area;
+        }
+
+        public void setArea(String area) {
+            this.area = area;
+        }
+
+        public String getLevel() {
+            return level;
+        }
+
+        public void setLevel(String level) {
+            this.level = level;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
     }
 }

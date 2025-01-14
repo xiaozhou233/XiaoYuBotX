@@ -63,7 +63,7 @@ class EventCallback implements WebSocketClient.WebSocketCallback {
 
     @Override
     public void onMessage(String text) {
-        logger.info("Received: " + text);
+        logger.info("Received: {}", text);
         new EventHandler(text);
     }
 

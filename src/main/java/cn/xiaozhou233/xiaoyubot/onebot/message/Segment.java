@@ -1,4 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.onebot.message;
 
-public class Segment extends Array{
+import java.util.Map;
+
+public class Segment extends Array<Map<String, Object>>{
 }

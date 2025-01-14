@@ -37,7 +37,13 @@ public class EventHandler {
 
 class MessageHandler {
     public void handle(JsonNode event) {
-
+        if(event.get("message_type").asText().equals("group")){
+            // TODO: GroupMessageEvent
+        } else if(event.get("message_type").asText().equals("private")){
+            // TODO: PrivateMessageEvent
+        } else {
+            throw new RuntimeException("Unknown message type: " + event.get("message_type").asText());
+        }
     }
 }
 
