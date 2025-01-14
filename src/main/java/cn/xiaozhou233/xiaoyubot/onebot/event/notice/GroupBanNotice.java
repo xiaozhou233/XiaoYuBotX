@@ -1,0 +1,51 @@
+package cn.xiaozhou233.xiaoyubot.onebot.event.notice;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class GroupBanNotice extends Notice {
+    @JsonProperty("sub_type")
+    private String subType;
+    @JsonProperty("group_id")
+    private long groupId;
+    @JsonProperty("operator_id")
+    private long operatorId;
+    @JsonProperty("duration")
+    private long duration;
+
+    public String getSubType() {
+        return subType;
+    }
+
+    public void setSubType(String subType) {
+        this.subType = subType;
+    }
+
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
+
+    public long getOperatorId() {
+        return operatorId;
+    }
+
+    public void setOperatorId(long operatorId) {
+        this.operatorId = operatorId;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
+    public static class SubType {
+        public static final String BAN = "ban";
+        public static final String LIFT_BAN = "lift_ban";
+    }
+}
