@@ -1,9 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.plugins;
 
-public interface Plugin {
-    void onEnable();
-    void onDisable();
-    default void onGroupMessage(){
-
-    }
+public abstract class Plugin {
+    abstract void onEnable();
+    abstract void onDisable();
 }
