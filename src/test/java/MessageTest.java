@@ -1,5 +1,7 @@
 import cn.xiaozhou233.xiaoyubot.onebot.event.message.*;
 import cn.xiaozhou233.xiaoyubot.onebot.event.notice.*;
+import cn.xiaozhou233.xiaoyubot.onebot.event.request.FriendAddRequest;
+import cn.xiaozhou233.xiaoyubot.onebot.event.request.GroupAddRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -258,6 +260,42 @@ public class MessageTest {
         assertEquals(987654321, groupMemberHonorChangeNotice.getGroupId());
         assertEquals("talkative", groupMemberHonorChangeNotice.getHonorType());
         assertEquals(1122334455, groupMemberHonorChangeNotice.getUserId());
+    }
+
+    @DisplayName("Friend Request Test")
+    @Test
+    void testDeserializeFriendRequest() throws Exception {
+        String friendRequestJson = jsons.get("FriendRequest.json");
+
+        FriendAddRequest friendRequest = objectMapper.readValue(friendRequestJson, FriendAddRequest.class);
+
+        assertNotNull(friendRequest);
+        assertEquals(1672531200, friendRequest.getTime());
+        assertEquals(1234567890, friendRequest.getSelfID());
+        assertEquals("request", friendRequest.getPostType());
+        assertEquals("friend", friendRequest.getRequestType());
+        assertEquals(1122334455, friendRequest.getUserId());
+        assertEquals("Please add me!", friendRequest.getComment());
+        assertEquals("unique-flag-123", friendRequest.getFlag());
+    }
+
+    @DisplayName("Group Request/Invite Test")
+    @Test
+    void testDeserializeGroupRequest() throws Exception {
+        String groupRequestJson = jsons.get("GroupRequest.json");
+
+        GroupAddRequest groupRequest = objectMapper.readValue(groupRequestJson, GroupAddRequest.class);
+
+        assertNotNull(groupRequest);
+        assertEquals(1672531200, groupRequest.getTime());
+        assertEquals(1234567890, groupRequest.getSelfID());
+        assertEquals("request", groupRequest.getPostType());
+        assertEquals("group", groupRequest.getRequestType());
+        assertEquals("add", groupRequest.getSubType());
+        assertEquals(987654321, groupRequest.getGroupId());
+        assertEquals(1122334455, groupRequest.getUserId());
+        assertEquals("Please let me join!", groupRequest.getComment());
+        assertEquals("unique-flag-456", groupRequest.getFlag());
     }
 
 }
