@@ -7,17 +7,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class OneBotClient {
-    private static WebSocketClient api;
+    private final WebSocketClient api;
+    private final WebSocketClient event;
+    private final String url;
     public OneBotClient(String url) {
+        this.url = url;
         api = new WebSocketClient();
-        api.connect(url + "/api", new APICallback());
+        event = new WebSocketClient();
+    }
 
-        WebSocketClient event = new WebSocketClient();
+    public void connect() {
+        api.connect(url + "/api", new APICallback());
         event.connect(url + "/event", new EventCallback());
     }
 
 
-    public static void send(String msg) {
+    public void send(String msg) {
         api.sendMessage(msg);
     }
 }
