@@ -1,5 +1,8 @@
 package cn.xiaozhou233.xiaoyubot.core;
 
+import cn.xiaozhou233.xiaoyubot.onebot.event.message.GroupMessage;
+import cn.xiaozhou233.xiaoyubot.onebot.event.message.PrivateMessage;
+import cn.xiaozhou233.xiaoyubot.plugins.PluginManager;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,11 +39,14 @@ public class EventHandler {
 }
 
 class MessageHandler {
-    public void handle(JsonNode event) {
+    private static final ObjectMapper mapper = new ObjectMapper();
+    public void handle(JsonNode event) throws JsonProcessingException {
         if(event.get("message_type").asText().equals("group")){
-            // TODO: GroupMessageEvent
+            GroupMessage groupMessage = mapper.readValue(event.toString(), GroupMessage.class);
+            PluginManager.getPlugins().forEach(plugin -> plugin.onGroupMessage(groupMessage));
         } else if(event.get("message_type").asText().equals("private")){
-            // TODO: PrivateMessageEvent
+            PrivateMessage privateMessage = mapper.readValue(event.toString(), PrivateMessage.class);
+            PluginManager.getPlugins().forEach(plugin -> plugin.onPrivateMessage(privateMessage));
         } else {
             throw new RuntimeException("Unknown message type: " + event.get("message_type").asText());
         }

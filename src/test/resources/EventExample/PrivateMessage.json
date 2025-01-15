@@ -1,0 +1,22 @@
+{
+  "time": 1672549200,
+  "self_id": 123456789,
+  "post_type": "message",
+  "message_type": "private",
+  "message_id": 54322,
+  "user_id": 987654321,
+  "message": {
+    "type": "text",
+    "data": {
+      "text": "This is a private message!"
+    }
+  },
+  "raw_message": "This is a private message!",
+  "font": 123,
+  "sender": {
+    "user_id": 987654321,
+    "nickname": "Jane Doe",
+    "sex": "female",
+    "age": "22"
+  }
+}
