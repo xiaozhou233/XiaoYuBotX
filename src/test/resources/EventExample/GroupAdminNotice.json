@@ -1,0 +1,9 @@
+{
+  "time": 1672531200,
+  "self_id": 1234567890,
+  "post_type": "notice",
+  "notice_type": "group_admin",
+  "sub_type": "set",
+  "group_id": 987654321,
+  "user_id": 1122334455
+}

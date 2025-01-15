@@ -1,0 +1,10 @@
+{
+  "time": 1672531200,
+  "self_id": 1234567890,
+  "post_type": "notice",
+  "notice_type": "group_recall",
+  "group_id": 987654321,
+  "user_id": 1122334455,
+  "operator_id": 5566778899,
+  "message_id": 99887766
+}

@@ -32,7 +32,7 @@ public class GroupUploadNotice extends Notice {
         @JsonProperty("size")
         private long size;
         @JsonProperty("busid")
-        private String busid;
+        private long busid;
 
         public String getId() {
             return id;
@@ -58,11 +58,11 @@ public class GroupUploadNotice extends Notice {
             this.size = size;
         }
 
-        public String getBusid() {
+        public long getBusid() {
             return busid;
         }
 
-        public void setBusid(String busid) {
+        public void setBusid(long busid) {
             this.busid = busid;
         }
     }
