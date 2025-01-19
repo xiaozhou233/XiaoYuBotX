@@ -11,12 +11,12 @@
     "name": "AnonymousUser",
     "flag": "some-flag"
   },
-  "message": {
-    "type": "text",
-    "data": {
-      "text": "Hello, world!"
-    }
-  },
+  "message": [{
+      "type": "text",
+      "data": {
+        "text": "Hello, world!"
+      }
+    }],
   "raw_message": "Hello, world!",
   "font": 123,
   "sender": {

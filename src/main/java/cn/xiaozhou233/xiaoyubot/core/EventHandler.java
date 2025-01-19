@@ -5,7 +5,6 @@ import cn.xiaozhou233.xiaoyubot.onebot.event.notice.*;
 import cn.xiaozhou233.xiaoyubot.onebot.event.request.*;
 
 import cn.xiaozhou233.xiaoyubot.plugins.PluginManager;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -14,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public class EventHandler {
     private static final Logger logger = LoggerFactory.getLogger("EventHandler");
     private static final ObjectMapper mapper = new ObjectMapper();
-    public EventHandler(String eventMsg){
+    public EventHandler(String eventMsg) {
         try {
             JsonNode event = mapper.readTree(eventMsg);
             switch (event.get("post_type").asText()){
@@ -34,7 +33,7 @@ public class EventHandler {
                     logger.warn("Unknown event type: {}", event.get("post_type").asText());
                     break;
             }
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -42,9 +41,10 @@ public class EventHandler {
 
 class MessageHandler {
     private static final ObjectMapper mapper = new ObjectMapper();
-    public void handle(JsonNode event) throws JsonProcessingException {
+    public void handle(JsonNode event) throws Exception {
         if(event.get("message_type").asText().equals("group")){
             GroupMessage groupMessage = mapper.readValue(event.toString(), GroupMessage.class);
+            System.out.println(groupMessage.toString());
             PluginManager.getPlugins().forEach(plugin -> plugin.onGroupMessage(groupMessage));
         } else if(event.get("message_type").asText().equals("private")){
             PrivateMessage privateMessage = mapper.readValue(event.toString(), PrivateMessage.class);
@@ -57,7 +57,7 @@ class MessageHandler {
 
 class NoticeHandler {
     private static final ObjectMapper mapper = new ObjectMapper();
-    public void handle(JsonNode event) throws JsonProcessingException {
+    public void handle(JsonNode event) throws Exception {
         String noticeType = event.get("notice_type").asText();
         switch (noticeType) {
             case "group_upload":
@@ -120,7 +120,7 @@ class NoticeHandler {
 
 class RequestHandler {
     private static final ObjectMapper mapper = new ObjectMapper();
-    public void handle(JsonNode event) throws JsonProcessingException {
+    public void handle(JsonNode event) throws Exception {
         String requestType = event.get("request_type").asText();
         switch (requestType) {
             case "friend":

@@ -5,12 +5,12 @@
   "message_type": "private",
   "message_id": 54322,
   "user_id": 987654321,
-  "message": {
+  "message": [{
     "type": "text",
     "data": {
       "text": "This is a private message!"
     }
-  },
+  }],
   "raw_message": "This is a private message!",
   "font": 123,
   "sender": {

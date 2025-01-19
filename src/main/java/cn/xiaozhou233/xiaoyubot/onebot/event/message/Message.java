@@ -1,8 +1,10 @@
 package cn.xiaozhou233.xiaoyubot.onebot.event.message;
 
 import cn.xiaozhou233.xiaoyubot.onebot.event.Event;
-import cn.xiaozhou233.xiaoyubot.onebot.message.Segment;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Message<T extends Message.Sender> extends Event {
     @JsonProperty("message_type")
@@ -12,7 +14,7 @@ public class Message<T extends Message.Sender> extends Event {
     @JsonProperty("user_id")
     protected long user_id;
     @JsonProperty("message")
-    protected Segment message = new Segment();
+    protected ArrayList<Map<String, Object>> message = new ArrayList<Map<String, Object>>();
     @JsonProperty("raw_message")
     protected String raw_message;
     @JsonProperty("font")
@@ -44,12 +46,17 @@ public class Message<T extends Message.Sender> extends Event {
         this.user_id = user_id;
     }
 
-    public Segment getMessage() {
+    public ArrayList<Map<String, Object>> getMessage() {
         return message;
     }
 
-    public void setMessage(Segment message) {
-        this.message = message;
+    public void setMessage(ArrayList<?> message) {
+        message.forEach(o -> {
+            if (o instanceof Map) {
+                this.message.add((Map<String, Object>) o);
+            }
+        });
+
     }
 
     public String getRawMessage() {
