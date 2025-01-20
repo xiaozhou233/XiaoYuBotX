@@ -20,7 +20,6 @@
 
 如果不出意外的话，输出文件在/out文件夹下
  - XiaoYubotX_<版本>.jar : 主文件
- - XiaoYuBotX_SDK_<版本>.jar : SDK文件，用于插件编写
 
 ## 如何使用
 ```shell

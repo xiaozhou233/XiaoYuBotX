@@ -1,4 +1,4 @@
-package cn.xiaozhou233.xiaoyubot.onebot.message.Segment;
+package cn.xiaozhou233.xiaoyubot.onebot.message.segment;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -80,6 +80,5 @@ class EventCallback implements WebSocketClient.WebSocketCallback {
 
     @Override
     public void onFailure(Throwable t, Response response) {
-
     }
 }

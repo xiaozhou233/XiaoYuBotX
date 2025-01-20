@@ -1,13 +1,11 @@
 package cn.xiaozhou233.xiaoyubot.onebot.event.message;
 
 import cn.xiaozhou233.xiaoyubot.onebot.event.Event;
-import cn.xiaozhou233.xiaoyubot.onebot.message.Array;
 import cn.xiaozhou233.xiaoyubot.onebot.message.Segments;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Message<T extends Message.Sender> extends Event {
     @JsonProperty("message_type")

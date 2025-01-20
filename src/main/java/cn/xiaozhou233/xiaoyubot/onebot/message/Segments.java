@@ -1,7 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.onebot.message;
 
-import cn.xiaozhou233.xiaoyubot.onebot.message.Segment.Segment;
-import cn.xiaozhou233.xiaoyubot.onebot.message.Segment.Text;
+import cn.xiaozhou233.xiaoyubot.onebot.message.segment.Text;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.HashMap;
