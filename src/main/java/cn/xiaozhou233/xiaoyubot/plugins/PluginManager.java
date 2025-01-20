@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.plugins;
 
+import cn.xiaozhou233.xiaoyubot.config.ConfigManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
@@ -9,16 +10,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class PluginManager {
     private static final Logger logger = LoggerFactory.getLogger("PluginManager");
     private static final List<Plugin> plugins = new ArrayList<>();
+    private static final HashMap<Plugin, ConfigManager> configs = new HashMap<>();
     private final String pluginPath = "plugins";
 
     public void loadPlugins() {
@@ -40,12 +39,17 @@ public class PluginManager {
             URLClassLoader loader = new URLClassLoader(urls);
             Class<?> clazz = loader.loadClass(meta.main);
             Plugin plugin = (Plugin) clazz.getDeclaredConstructor().newInstance();
+            configs.put(plugin, new ConfigManager(plugin, file.getName()));
             plugin.onEnable();
             plugins.add(plugin);
         } catch (Exception e) {
             logger.error("Failed to load plugin: {}", file.getName(), e);
             throw new RuntimeException(e);
         }
+    }
+
+    public static ConfigManager getConfig(Plugin plugin) {
+        return configs.get(plugin);
     }
 
     public void unloadPlugin(Plugin plugin) {
