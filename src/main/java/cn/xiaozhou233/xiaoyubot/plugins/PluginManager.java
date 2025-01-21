@@ -48,6 +48,18 @@ public class PluginManager {
         }
     }
 
+    public void loadPlugin(Plugin plugin, String name, String version, Class<?> main) {
+        try {
+            PluginMeta meta = new PluginMeta(name, version, main.getName());
+            configs.put(plugin, new ConfigManager(plugin, name));
+            plugin.onEnable();
+            plugins.add(plugin);
+        } catch (Exception e) {
+            logger.error("Failed to load plugin: {} (Error:1)", name, e);
+            throw new RuntimeException(e);
+        }
+    }
+
     public static ConfigManager getConfig(Plugin plugin) {
         return configs.get(plugin);
     }

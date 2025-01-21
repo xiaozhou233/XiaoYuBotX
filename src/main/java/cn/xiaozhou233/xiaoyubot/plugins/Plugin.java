@@ -41,5 +41,11 @@ public abstract class Plugin {
     public void onFriendRequest(FriendAddRequest event) {}
 
     public void onGroupRequest(GroupAddRequest event) {}
+
+    // XiaoYuBotX
+    // Group
+    public void onCommand(GroupMessage event, String command) {}
+    // Private
+    public void onCommand(PrivateMessage event, String command) {}
 }
 

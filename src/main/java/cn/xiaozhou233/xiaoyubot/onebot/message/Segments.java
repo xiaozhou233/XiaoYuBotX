@@ -30,11 +30,12 @@ public class Segments {
         }
     }
 
-    protected int getCount(){
+
+    public int getCount(){
         return this.count;
     }
 
-    protected void setCount(int count){
+    public void setCount(int count){
         this.count = count;
     }
 }
