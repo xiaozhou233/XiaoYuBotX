@@ -27,21 +27,23 @@ public class CommandParser extends Plugin{
 
     @Override
     public void onGroupMessage(GroupMessage event) {
-        if (event.getRawMessage().replace(" ", "").startsWith(prefix)){
-            cmdMap.forEach((cmd, plugin) -> {
+        String msg = event.getRawMessage().replace(" ", "");
+        cmdMap.forEach((cmd, plugin) -> {
+            if (msg.startsWith(prefix + cmd)) {
                 plugin.onCommand(event, cmd);
-            });
-        }
+            }
+        });
     }
 
 
     @Override
     public void onPrivateMessage(PrivateMessage event) {
-        if (event.getRawMessage().replace(" ", "").startsWith(prefix)){
-            cmdMap.forEach((cmd, plugin) -> {
+        String msg = event.getRawMessage().replace(" ", "");
+        cmdMap.forEach((cmd, plugin) -> {
+            if (msg.startsWith(prefix + cmd)) {
                 plugin.onCommand(event, cmd);
-            });
-        }
+            }
+        });
     }
 
     @Override
