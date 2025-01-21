@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.onebot.event.message;
 
+import cn.xiaozhou233.xiaoyubot.onebot.api.send_group_msg;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GroupMessage extends Message<GroupMessage.Sender> {
@@ -23,6 +24,10 @@ public class GroupMessage extends Message<GroupMessage.Sender> {
 
     public void setAnonymous(Anonymous anonymous) {
         this.anonymous = anonymous;
+    }
+
+    public fastAction fastAction() {
+        return new fastAction();
     }
 
     public static class Anonymous {
@@ -100,6 +105,18 @@ public class GroupMessage extends Message<GroupMessage.Sender> {
 
         public void setTitle(String title) {
             this.title = title;
+        }
+    }
+
+    public final class fastAction {
+        public void send(String message) {
+            new send_group_msg(groupId, message).send();
+        }
+
+        public void send(String message, boolean at) {
+            new send_group_msg(groupId, "[CQ:at,qq=%d] %s".formatted(
+                    user_id, message
+            )).send();
         }
     }
 }

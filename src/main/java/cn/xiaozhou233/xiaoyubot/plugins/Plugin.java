@@ -5,6 +5,8 @@ import cn.xiaozhou233.xiaoyubot.onebot.event.notice.*;
 import cn.xiaozhou233.xiaoyubot.onebot.event.request.*;
 
 public abstract class Plugin {
+    private final BotInstance botInstance = new BotInstance(this);
+
     public abstract void onEnable();
 
     public abstract void onDisable();
@@ -47,5 +49,10 @@ public abstract class Plugin {
     public void onCommand(GroupMessage event, String command) {}
     // Private
     public void onCommand(PrivateMessage event, String command) {}
+
+    // Bot Instance
+    protected final BotInstance getBot() {
+        return botInstance;
+    }
 }
 

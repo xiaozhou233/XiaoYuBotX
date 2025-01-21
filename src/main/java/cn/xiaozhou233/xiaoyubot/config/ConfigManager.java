@@ -32,11 +32,11 @@ public class ConfigManager {
         }
     }
 
-    public Object getConfig(String key) {
+    public Object get(String key) {
         return config.getOrDefault(key, null);
     }
 
-    public void setConfig(String key, Object value) {
+    public void set(String key, Object value) {
         config.put(key, value);
     }
 
