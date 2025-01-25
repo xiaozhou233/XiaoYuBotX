@@ -1,6 +1,5 @@
 package cn.xiaozhou233.xiaoyubot;
 
-import cn.xiaozhou233.xiaoyubot.command.CommandParser;
 import cn.xiaozhou233.xiaoyubot.core.OneBotClient;
 import cn.xiaozhou233.xiaoyubot.plugins.PluginManager;
 import cn.xiaozhou233.xiaoyubot.utils.BotConfig;
@@ -40,8 +39,6 @@ public class XiaoYuBotX {
         pluginManager = new PluginManager();
         pluginManager.loadPlugins();
 
-        logger.info("Init Command Parser...");
-        new CommandParser();
 
 
         logger.info("XiaoYuBotX started!");

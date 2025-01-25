@@ -10,11 +10,12 @@ public class BotInstance {
         this.plugin = plugin;
     }
 
-    private ConfigManager getConfig() {
+    public ConfigManager getConfig() {
         return PluginManager.getConfig(plugin);
     }
 
-    private PluginManager getPluginManager() {
+    public PluginManager getPluginManager() {
         return XiaoYuBotX.getPluginManager();
     }
+
 }
