@@ -1,9 +1,10 @@
 package cn.xiaozhou233.xiaoyubot.plugins;
 
 import cn.xiaozhou233.xiaoyubot.config.ConfigManager;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class PluginManager {
     private static final Logger logger = LoggerFactory.getLogger("PluginManager");
     private static final List<Plugin> plugins = new ArrayList<>();
     private static final HashMap<Plugin, ConfigManager> configs = new HashMap<>();
+    private static final ObjectMapper mapper = new ObjectMapper();
     private final String pluginPath = "plugins";
 
     public void loadPlugins() {
@@ -75,13 +77,10 @@ public class PluginManager {
 
     private PluginMeta getPluginMeta(File file) {
         try (JarFile jarFile = new JarFile(file)) {
-            JarEntry entry = jarFile.getJarEntry("plugin.yml");
+            JarEntry entry = jarFile.getJarEntry("plugin.json");
             if (entry == null) throw new RuntimeException("Plugin meta not found in " + file.getName());
             try (InputStream inputStream = jarFile.getInputStream(entry)) {
-                Yaml yaml = new Yaml();
-                Map<String, String> map = yaml.loadAs(inputStream, Map.class);
-                if (map.isEmpty()) throw new RuntimeException("Invalid YAML content in " + file.getName());
-                return new PluginMeta(map.get("name"), map.get("version"), map.get("main"));
+                return mapper.readValue(inputStream, PluginMeta.class);
             }
         } catch (IOException e) {
             logger.error("Failed to read plugin meta: {}", file.getName(), e);
