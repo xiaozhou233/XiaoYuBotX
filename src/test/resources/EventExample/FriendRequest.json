@@ -1,9 +1,0 @@
-{
-  "time": 1672531200,
-  "self_id": 1234567890,
-  "post_type": "request",
-  "request_type": "friend",
-  "user_id": 1122334455,
-  "comment": "Please add me!",
-  "flag": "unique-flag-123"
-}
