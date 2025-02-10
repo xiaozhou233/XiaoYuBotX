@@ -1,7 +1,7 @@
 package cn.xiaozhou233.xiaoyubot.plugins;
 
 import cn.xiaozhou233.xiaoyubot.XiaoYuBotX;
-import cn.xiaozhou233.xiaoyubot.config.ConfigManager;
+import org.slf4j.Logger;
 
 public class BotInstance {
     private final Plugin plugin;
@@ -10,12 +10,12 @@ public class BotInstance {
         this.plugin = plugin;
     }
 
-    public ConfigManager getConfig() {
-        return PluginManager.getConfig(plugin);
-    }
-
     public PluginManager getPluginManager() {
         return XiaoYuBotX.getPluginManager();
+    }
+
+    public Logger getLogger() {
+        return PluginManager.getLogger(plugin);
     }
 
 }

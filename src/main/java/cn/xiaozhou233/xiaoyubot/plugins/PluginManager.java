@@ -1,7 +1,5 @@
 package cn.xiaozhou233.xiaoyubot.plugins;
 
-import cn.xiaozhou233.xiaoyubot.config.ConfigManager;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +16,7 @@ import java.util.jar.JarFile;
 public class PluginManager {
     private static final Logger logger = LoggerFactory.getLogger("PluginManager");
     private static final List<Plugin> plugins = new ArrayList<>();
-    private static final HashMap<Plugin, ConfigManager> configs = new HashMap<>();
+    private static final HashMap<Plugin, Logger> loggers = new HashMap<>();
     private static final ObjectMapper mapper = new ObjectMapper();
     private final String pluginPath = "plugins";
 
@@ -41,7 +39,7 @@ public class PluginManager {
             URLClassLoader loader = new URLClassLoader(urls);
             Class<?> clazz = loader.loadClass(meta.main);
             Plugin plugin = (Plugin) clazz.getDeclaredConstructor().newInstance();
-            configs.put(plugin, new ConfigManager(plugin, file.getName()));
+            loggers.put(plugin, LoggerFactory.getLogger(meta.name));
             plugin.onEnable();
             plugins.add(plugin);
         } catch (Exception e) {
@@ -53,17 +51,12 @@ public class PluginManager {
     public void loadPlugin(Plugin plugin, String name, String version, Class<?> main) {
         try {
             PluginMeta meta = new PluginMeta(name, version, main.getName());
-            configs.put(plugin, new ConfigManager(plugin, name));
             plugin.onEnable();
             plugins.add(plugin);
         } catch (Exception e) {
             logger.error("Failed to load plugin: {} (Error:1)", name, e);
             throw new RuntimeException(e);
         }
-    }
-
-    public static ConfigManager getConfig(Plugin plugin) {
-        return configs.get(plugin);
     }
 
     public void unloadPlugin(Plugin plugin) {
@@ -97,6 +90,12 @@ public class PluginManager {
             logger.error("Failed to create plugin directory.");
             throw new RuntimeException("Cannot create plugin directory! Maybe it's already exist or not write permission.");
         }
+    }
+
+    public static Logger getLogger(Plugin plugin){
+        Logger pluginLogger = loggers.get(plugin);
+        assert pluginLogger != null;
+        return pluginLogger;
     }
 
     public record PluginMeta(String name, String version, String main) {
