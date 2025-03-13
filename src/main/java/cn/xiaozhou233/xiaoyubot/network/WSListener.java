@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.network;
 
+import cn.xiaozhou233.xiaoyubot.handler.WSMsgHandler;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -12,6 +13,7 @@ public class WSListener extends WebSocketListener {
     private static final int MAX_RETRIES = 5;
     private static final int RETRIES_INTERVAL = 5000;
     private int retryCount = 0;
+    private boolean isConnected = false;
     private String url;
     private WebSocketClient client;
 
@@ -24,24 +26,28 @@ public class WSListener extends WebSocketListener {
     public void onOpen(@NotNull WebSocket webSocket, @NotNull Response response) {
         logger.info("Connection Open");
         retryCount = 0;
+        isConnected = true;
         super.onOpen(webSocket, response);
     }
 
     @Override
     public void onMessage(@NotNull WebSocket webSocket, @NotNull String text) {
         logger.debug("Message Received: {}", text);
+        WSMsgHandler handler = new WSMsgHandler(text);
         super.onMessage(webSocket, text);
     }
 
     @Override
     public void onClosing(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
         logger.warn("Connection Closing: {} {}", code, reason);
+        webSocket.close(code, reason);
         super.onClosing(webSocket, code, reason);
     }
 
     @Override
     public void onClosed(@NotNull WebSocket webSocket, int code, @NotNull String reason) {
         logger.warn("Connection Closed: {} {}", code, reason);
+        isConnected = false;
         reconnect();
         super.onClosed(webSocket, code, reason);
     }
@@ -49,6 +55,7 @@ public class WSListener extends WebSocketListener {
     @Override
     public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, @Nullable Response response) {
         logger.error("Connection Failed: {}", t.getMessage());
+        isConnected = false;
         reconnect();
         super.onFailure(webSocket, t, response);
     }
@@ -68,5 +75,9 @@ public class WSListener extends WebSocketListener {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isConnected() {
+        return isConnected;
     }
 }

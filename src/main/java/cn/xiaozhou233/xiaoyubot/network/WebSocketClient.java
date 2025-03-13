@@ -16,4 +16,12 @@ public class WebSocketClient {
     public void start() {
         client.newWebSocket(request, this.listener);
     }
+
+    public boolean isConnected() {
+        return this.listener.isConnected();
+    }
+
+    public OkHttpClient getClient() {
+        return client;
+    }
 }
