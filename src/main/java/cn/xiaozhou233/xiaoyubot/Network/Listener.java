@@ -1,5 +1,6 @@
 package cn.xiaozhou233.xiaoyubot.Network;
 
+import cn.xiaozhou233.xiaoyubot.OneBot.Client.EventListener;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -32,6 +33,8 @@ public class Listener extends WebSocketListener {
         super.onMessage(webSocket, text);
 
         logger.debug("Received: {}", text);
+
+        EventListener.onMessage(text);
     }
 
     @Override
