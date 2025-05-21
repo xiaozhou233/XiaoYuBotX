@@ -1,8 +1,11 @@
 package cn.xiaozhou233.xiaoyubot.OneBot.Client;
 
+import cn.xiaozhou233.xiaoyubot.XiaoYuBotX;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import onebot11.event.message.GroupMessage;
 import onebot11.event.message.Message;
+import onebot11.event.message.PrivateMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +21,11 @@ public class EventListener {
                 case "message":
                     Message msg = mapper.readValue(message, Message.class);
                     if (msg.getSubType().equals("group")) {
-                        // TODO
+                        GroupMessage groupMsg = mapper.readValue(message, GroupMessage.class);
+                        XiaoYuBotX.getEventBus().post(groupMsg);
+                    } else if (msg.getSubType().equals("private")) {
+                        PrivateMessage privateMsg = mapper.readValue(message, PrivateMessage.class);
+                        XiaoYuBotX.getEventBus().post(privateMsg);
                     }
                     break;
                 case "notice":
