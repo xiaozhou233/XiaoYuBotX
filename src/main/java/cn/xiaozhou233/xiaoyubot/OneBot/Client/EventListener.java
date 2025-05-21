@@ -2,6 +2,7 @@ package cn.xiaozhou233.xiaoyubot.OneBot.Client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import onebot11.event.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,10 @@ public class EventListener {
             Event event = mapper.readValue(message, Event.class);
             switch (event.getPostType()) {
                 case "message":
-                    //TODO: Handle message event
+                    Message msg = mapper.readValue(message, Message.class);
+                    if (msg.getSubType().equals("group")) {
+                        // TODO
+                    }
                     break;
                 case "notice":
                     //TODO: Handle notice event
