@@ -4,39 +4,38 @@ plugins {
 }
 
 group = 'cn.xiaozhou233.xiaoyubot'
-version = '2.0.1.250121.2'
+version = '2.1.0'
 
 repositories {
     mavenCentral()
+    maven {
+        name "gitea"
+        allowInsecureProtocol = true
+        url "http://192.168.2.222:13000/api/packages/xiaozhou233/maven"
+
+    }
 }
 
 dependencies {
-    // OKHttp
-    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '5.0.0-alpha.14'
-
-    // Jackson
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.18.1'
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.1'
-
-    // https://mvnrepository.com/artifact/org.yaml/snakeyaml
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.3'
-
+    // Log System
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     implementation 'org.slf4j:slf4j-api:2.0.13'
     // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
     implementation 'ch.qos.logback:logback-classic:1.5.15'
 
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.11.4'
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.11.4'
-    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-api
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite-api', version: '1.11.4'
-    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite-engine', version: '1.11.4'
+    // Network
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '5.0.0-alpha.14'
+
+    // Data
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.3")
+
+    implementation 'onebot11:OneBot-JavaBean:1.0-SNAPSHOT'
 }
 
 // build artifact (with dependencies)
@@ -47,7 +46,7 @@ shadowJar {
         attributes(
                 'Implementation-Title': 'XiaoYuBotX',
                 'Implementation-Version': version,
-                'Main-Class': 'cn.xiaozhou233.xiaoyubot.XiaoYuBotX'
+                'Main-Class': 'cn.xiaozhou233.xiaoyubot.Bootstrap'
         )
     }
 }
@@ -61,7 +60,3 @@ tasks.named('build') {
     dependsOn(tasks.shadowJar)
 }
 
-
-tasks.test {
-    useJUnitPlatform()
-}
