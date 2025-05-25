@@ -32,5 +32,11 @@ public class Bootstrap {
                     "config.json"
             );
         }
+
+        // Plugin
+        File pluginDir = new File("./plugins");
+        if (!pluginDir.exists()) {
+            pluginDir.mkdir();
+        }
     }
 }
