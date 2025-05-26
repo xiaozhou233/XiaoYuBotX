@@ -1,5 +1,6 @@
 {
   "onebot": {
-    "ws": "ws://localhost:5701"
+    "ws": "ws://localhost:3001",
+    "http": "http://localhost:3000"
   }
 }

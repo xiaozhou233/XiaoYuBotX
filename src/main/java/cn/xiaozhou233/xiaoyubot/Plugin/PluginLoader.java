@@ -1,6 +1,8 @@
 package cn.xiaozhou233.xiaoyubot.Plugin;
 
+import cn.xiaozhou233.xiaoyubot.Config.Config;
 import cn.xiaozhou233.xiaoyubot.Event.EventBus;
+import cn.xiaozhou233.xiaoyubot.Utils.FileUtils;
 import cn.xiaozhou233.xiaoyubot.XiaoYuBotX;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -26,7 +28,12 @@ public class PluginLoader {
             PluginClassLoader loader = new PluginClassLoader(pluginFile, this.getClass().getClassLoader());
             Class<?> main = loader.loadClass(info.getMain());
             JavaPlugin plugin = (JavaPlugin) main.getDeclaredConstructor().newInstance();
-            plugin.init(info, eventBus);
+            Logger pluginLogger = LoggerFactory.getLogger(info.getName());
+            File configFile = new File("./plugins/"+info.getName()+"/config.json");
+            if (!configFile.exists())
+                FileUtils.pluginConfigInit(pluginFile, info.getName());
+            Config pluginConfig = new Config(configFile);
+            plugin.init(info, eventBus, pluginLogger, pluginConfig);
             plugin.onEnable();
 
             return plugin;
