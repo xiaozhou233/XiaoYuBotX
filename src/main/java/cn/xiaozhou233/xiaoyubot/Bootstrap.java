@@ -11,6 +11,7 @@ public class Bootstrap {
     public static void main(String[] args) {
         version();
         check();
+        XiaoYuBotX botInstance = new XiaoYuBotX();
     }
 
     private static void version() {
