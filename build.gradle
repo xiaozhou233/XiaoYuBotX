@@ -35,7 +35,7 @@ dependencies {
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
     implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.3")
 
-    implementation 'onebot11:OneBot-JavaBean:1.0-SNAPSHOT'
+    implementation 'onebot11:OneBot-JavaBean:1.1'
 }
 
 // build artifact (with dependencies)

@@ -11,6 +11,7 @@ public class Bootstrap {
     public static void main(String[] args) {
         version();
         check();
+        XiaoYuBotX botInstance = new XiaoYuBotX();
     }
 
     private static void version() {
@@ -31,6 +32,12 @@ public class Bootstrap {
                     ClassLoader.getSystemResourceAsStream("config.json"),
                     "config.json"
             );
+        }
+
+        // Plugin
+        File pluginDir = new File("./plugins");
+        if (!pluginDir.exists()) {
+            pluginDir.mkdir();
         }
     }
 }
