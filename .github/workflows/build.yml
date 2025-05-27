@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      packages: read
 
     steps:
       - uses: actions/checkout@v4
@@ -27,3 +28,6 @@ jobs:
 
       - name: Build with Gradle Wrapper
         run: ./gradlew build
+        env:
+          GPR_USER: "xiaozhou233"
+          GPR_KEY: ${{ secrets.GITHUB_TOKEN }}
