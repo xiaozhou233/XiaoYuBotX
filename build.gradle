@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'com.gradleup.shadow' version '8.3.4'
+    id 'maven-publish'
 }
 
 group = 'cn.xiaozhou233.xiaoyubot'
@@ -68,3 +69,32 @@ tasks.named('build') {
     dependsOn(tasks.shadowJar)
 }
 
+
+publishing {
+    repositories {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                groupId = 'onebot11'
+                artifactId = 'onebot-javabean'
+            }
+        }
+
+
+        // Local Server
+        maven {
+            name = "Gitea"
+            url = uri("http://192.168.2.222:13000/api/packages/xiaozhou233/maven")
+            allowInsecureProtocol = true
+
+            credentials(HttpHeaderCredentials) {
+                name = "Authorization"
+                value = "token " + (findProperty("gitea.token") ?: "")
+            }
+
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
+    }
+}
