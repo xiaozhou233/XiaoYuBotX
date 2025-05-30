@@ -16,6 +16,7 @@ public class Config {
     private JsonNode node;
     public Config(File configFile){
         this.configFile = configFile;
+        if (!configFile.exists()) return;
         refresh();
     }
 
