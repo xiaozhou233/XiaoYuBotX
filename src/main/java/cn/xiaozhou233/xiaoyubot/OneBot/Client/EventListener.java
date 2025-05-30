@@ -3,9 +3,8 @@ package cn.xiaozhou233.xiaoyubot.OneBot.Client;
 import cn.xiaozhou233.xiaoyubot.XiaoYuBotX;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import onebot11.event.message.GroupMessage;
-import onebot11.event.message.Message;
-import onebot11.event.message.PrivateMessage;
+import onebot11.event.message.*;
+import onebot11.event.request.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +31,14 @@ public class EventListener {
                     //TODO: Handle notice event
                     break;
                 case "request":
-                    //TODO: Handle request event
+                    Request request = mapper.readValue(message, Request.class);
+                    if (request.getRequestType().equals("friend")) {
+                        FriendRequest friendRequest = mapper.readValue(message, FriendRequest.class);
+                        XiaoYuBotX.getEventBus().post(friendRequest);
+                    } else if (request.getRequestType().equals("group")) {
+                        GroupRequest groupRequest = mapper.readValue(message, GroupRequest.class);
+                        XiaoYuBotX.getEventBus().post(groupRequest);
+                    }
                     break;
                 case "meta_event":
                     break;
